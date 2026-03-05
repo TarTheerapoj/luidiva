@@ -257,7 +257,7 @@
         <div style="background:#1a1a1a;border:1px solid #2e2e2e;padding:20px 24px;min-width:110px;border-top:3px solid #555;">
           <div class="section-label mb-2" style="color:var(--hero-muted);">Workout</div>
           <div class="big-stat" style="font-size:2.6rem;color:var(--hero-text);">1/3</div>
-          <div style="font-size:.75rem;color:var(--hero-muted);margin-top:4px;">แล้ว / 3</div>
+          <div style="font-size:.75rem;color:var(--hero-muted);margin-top:4px;">ทำแล้ว 1/3</div>
         </div>
       </div>
     </div>
@@ -517,11 +517,11 @@
   </a>
   <a href="#bands" onclick="setMobActive(this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-    Score
+    ระดับ
   </a>
   <a href="#guidance" onclick="setMobActive(this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    Guidance
+    แนะนำ
   </a>
 </nav>
 
@@ -557,18 +557,18 @@ const DATA = {
       },
       pcts:{ P10:143, P25:162, P50:191, P75:218, P90:244, P95:257 },
       clusters:[
-        { score:206, size:7, note:'Most repeated score — round completion cluster' },
-        { score:198, size:5, note:'Dense zone — tiebreak sensitive' },
-        { score:200, size:5, note:'Round boundary cluster' }
+        { score:206, size:7, note:'คะแนนที่พบบ่อยสุด — cluster จบรอบ' },
+        { score:198, size:5, note:'โซนคะแนนชิด — ผลต่าง 1 rep สำคัญมาก' },
+        { score:200, size:5, note:'cluster ขอบรอบ' }
       ],
       tb:{ range:'186–196', athletes:19, ranks:10, sens:1.9 },
       overlap:{ exists:true, count:30, range:'118–226', msg:'All 30 Scaled Men overlap with the RX Men score range' },
       bands:{
-        Elite:       { range:'257+ reps', pct:'Top 5%',    note:'Top 5% of Thai RX Men. Near-unbroken gymnastics under sustained aerobic load. Competing at the highest domestic CrossFit level.' },
-        Competitive: { range:'218–256',   pct:'Top 25%',   note:'Strong Thai field competitor. Good engine with functional gymnastics cycling. Pacing discipline above average for the domestic field.' },
-        Solid:       { range:'191–217',   pct:'Top 50%',   note:'At or above the Thai median. Aerobic capacity is working. Gymnastics efficiency with 2–3 breaks per set is likely the current ceiling.' },
-        Developing:  { range:'162–190',   pct:'Top 75%',   note:'Developing phase. Engine or gymnastics skill is limiting. Clear ROI available from focused training on the weaker of the two.' },
-        Beginner:    { range:'< 162 reps',pct:'Bottom 25%',note:'Foundation building stage. Capacity and movement quality are both compounding. Consistent attendance is the highest-leverage action at this level.' }
+        Elite:       { range:'257+ reps', pct:'Top 5%',    note:'Top 5% นักกีฬา RX Men ไทย Engine แข็งแกร่งและ Gymnastics แทบไม่หยุดพักใต้ความเหนื่อย ระดับแข่งขันสูงสุดในสนามไทย' },
+        Competitive: { range:'218–256',   pct:'Top 25%',   note:'Top 25% สนามไทย Engine ดีและ Gymnastics cycling มีประสิทธิภาพ Pacing discipline เหนือค่าเฉลี่ย' },
+        Solid:       { range:'191–217',   pct:'Top 50%',   note:'ที่หรือเหนือค่ากลางไทย Aerobic capacity ทำงานได้ดี Gymnastics cycling 2–3 breaks ต่อ set เป็นเพดานปัจจุบัน' },
+        Developing:  { range:'162–190',   pct:'Top 75%',   note:'กำลังพัฒนา Engine หรือ Gymnastics ยังจำกัดอยู่ การฝึกที่เจาะจงใน 1 จุดอ่อนให้ผลตอบแทนคุ้มค่าสูง' },
+        Beginner:    { range:'< 162 reps',pct:'Bottom 25%',note:'กำลังสร้างฐาน ทั้ง Capacity และ Movement Quality กำลัง compound พัฒนาการ Consistency คือ leverage สูงสุดในช่วงนี้' }
       }
     },
     'rx-women': {
@@ -579,18 +579,18 @@ const DATA = {
       },
       pcts:{ P10:131, P25:158, P50:184, P75:215, P90:243, P95:259 },
       clusters:[
-        { score:210, size:6, note:'Most repeated score — round completion boundary' },
-        { score:159, size:5, note:'Dense zone at P25 boundary' },
-        { score:149, size:4, note:'Dense zone below median' }
+        { score:210, size:6, note:'คะแนนที่พบบ่อยสุด — ขอบรอบ' },
+        { score:159, size:5, note:'โซนคะแนนชิดที่แนว P25' },
+        { score:149, size:4, note:'โซนคะแนนชิดใต้ค่ากลาง' }
       ],
       tb:{ range:'179–189', athletes:17, ranks:9, sens:1.9 },
       overlap:{ exists:true, count:79, range:'88–244', msg:'All 79 Scaled Women overlap with the RX Women score range' },
       bands:{
-        Elite:       { range:'259+ reps', pct:'Top 5%',    note:'Top 5% of Thai RX Women. Elite engine with efficient gymnastics. Best domestic female CrossFit performers.' },
-        Competitive: { range:'215–258',   pct:'Top 25%',   note:'Strong domestic competitor. Good pacing and gymnastics efficiency. Top quarter of the Thai female RX field.' },
-        Solid:       { range:'184–214',   pct:'Top 50%',   note:'At or above the Thai median. Consistent performer with room to develop gymnastics cycling under fatigue.' },
-        Developing:  { range:'158–183',   pct:'Top 75%',   note:'Developing capacity or skill. One focused training cycle on the primary limiter yields meaningful percentile gains.' },
-        Beginner:    { range:'< 158 reps',pct:'Bottom 25%',note:'Building stage. Every rep logged is development data. Consistent training will produce fast visible improvement.' }
+        Elite:       { range:'259+ reps', pct:'Top 5%',    note:'Top 5% นักกีฬา RX Women ไทย Engine ระดับ Elite และ Gymnastics มีประสิทธิภาพสูง นักกีฬาหญิงระดับแนวหน้าของสนามไทย' },
+        Competitive: { range:'215–258',   pct:'Top 25%',   note:'Top 25% สนามหญิง RX ไทย Pacing และ Gymnastics cycling ดีเหนือค่าเฉลี่ย' },
+        Solid:       { range:'184–214',   pct:'Top 50%',   note:'ที่หรือเหนือค่ากลางไทย Consistent และมีพื้นที่พัฒนา Gymnastics cycling ใต้ความเหนื่อย' },
+        Developing:  { range:'158–183',   pct:'Top 75%',   note:'กำลังพัฒนา Capacity หรือ Skill 1 รอบการฝึกที่เจาะจงจุดอ่อนหลักให้ผลดีอย่างชัดเจน' },
+        Beginner:    { range:'< 158 reps',pct:'Bottom 25%',note:'กำลังสร้างฐาน ทุก rep ที่ log คือข้อมูลพัฒนาการ การฝึกสม่ำเสมอจะเห็นผลชัดเจนใน 6 เดือน' }
       }
     },
     'scaled-men': {
@@ -601,17 +601,17 @@ const DATA = {
       },
       pcts:{ P10:131, P25:144, P50:159, P75:176, P90:215, P95:216 },
       clusters:[
-        { score:144, size:3, note:'Most repeated score in Scaled Men field' },
-        { score:174, size:2, note:'Dense zone near P75' }
+        { score:144, size:3, note:'คะแนนที่พบบ่อยสุดใน Scaled Men' },
+        { score:174, size:2, note:'โซนคะแนนชิดใกล้ P75' }
       ],
       tb:{ range:'154–164', athletes:3, ranks:3, sens:1.0 },
       overlap:{ exists:true, count:30, range:'118–226', msg:'Scaled Men field entirely overlaps with RX Men bottom range. Top Scaled Men (180+) are well within RX scoring territory.' },
       bands:{
-        Elite:       { range:'215+ reps', pct:'Top 10%',   note:'Top Scaled Men. Fitness is clearly at or above the RX entry point. The gap to RX is movement standard, not conditioning.' },
-        Competitive: { range:'176–214',   pct:'Top 25%',   note:'Strong Scaled performance. Upper quartile of Thai Scaled Men field. RX movement standards work is the next logical step.' },
-        Solid:       { range:'159–175',   pct:'Top 50%',   note:'At or above the Scaled Men median. Good base. Focused movement standards work over 3–6 months can unlock RX readiness.' },
-        Developing:  { range:'144–158',   pct:'Top 75%',   note:'Developing stage. Engine and movement are building simultaneously — a normal and productive phase of CrossFit development.' },
-        Beginner:    { range:'< 144 reps',pct:'Bottom 25%',note:'Foundation phase. Quality of movement now directly determines the ceiling 12 months from now. Prioritise technique over intensity.' }
+        Elite:       { range:'215+ reps', pct:'Top 10%',   note:'Top 10% Scaled Men ไทย Fitness ถึงหรือเกิน Entry Point ของ RX แล้ว ช่องว่างที่เหลือคือมาตรฐานท่าทาง ไม่ใช่ Conditioning' },
+        Competitive: { range:'176–214',   pct:'Top 25%',   note:'Top 25% Scaled Men สนามไทย Performance แข็งแกร่ง การฝึก RX Movement Standards คือ Step ต่อไปที่สมเหตุสมผล' },
+        Solid:       { range:'159–175',   pct:'Top 50%',   note:'ที่หรือเหนือค่ากลาง Scaled Men ฐานดี การฝึก Movement Standards 3–6 เดือนสามารถ Unlock RX ได้' },
+        Developing:  { range:'144–158',   pct:'Top 75%',   note:'กำลังพัฒนา Engine และ Movement กำลัง build ไปพร้อมกัน เป็น Phase ปกติและมีประโยชน์ของ CrossFit Development' },
+        Beginner:    { range:'< 144 reps',pct:'Bottom 25%',note:'ช่วง Foundation ความถูกต้องของท่าทางตอนนี้กำหนดเพดานใน 12 เดือนข้างหน้า ให้ความสำคัญ Technique มากกว่า Intensity' }
       }
     },
     'scaled-women': {
@@ -622,60 +622,60 @@ const DATA = {
       },
       pcts:{ P10:119, P25:148, P50:163, P75:185, P90:212, P95:222 },
       clusters:[
-        { score:153, size:6, note:'Most repeated score — dense zone near median' },
-        { score:154, size:3, note:'Dense zone — tiebreak sensitive' },
-        { score:179, size:3, note:'Round completion boundary cluster' }
+        { score:153, size:6, note:'คะแนนที่พบบ่อยสุด — โซนคะแนนชิดใกล้ค่ากลาง' },
+        { score:154, size:3, note:'โซนคะแนนชิด — ผลต่าง 1 rep สำคัญมาก' },
+        { score:179, size:3, note:'cluster ขอบรอบ' }
       ],
       tb:{ range:'158–168', athletes:10, ranks:7, sens:1.4 },
       overlap:{ exists:true, count:79, range:'88–244', msg:'Scaled Women field entirely overlaps with RX Women score range. Top Scaled Women (180+) are competing in RX scoring territory.' },
       bands:{
-        Elite:       { range:'222+ reps', pct:'Top 5%',    note:'Top 5% of Thai Scaled Women. Fitness is clearly at RX entry point. Movement standard is the only remaining barrier.' },
-        Competitive: { range:'185–221',   pct:'Top 25%',   note:'Strong Scaled Women performance. Upper quartile of Thai field. RX movement standard evaluation is a logical next step.' },
-        Solid:       { range:'163–184',   pct:'Top 50%',   note:'At or above the Scaled Women median. Solid base. Focused development on the primary movement limiter yields clear gains.' },
-        Developing:  { range:'148–162',   pct:'Top 75%',   note:'Developing phase. Engine and movement building together. Consistent attendance is the most powerful training variable here.' },
-        Beginner:    { range:'< 148 reps',pct:'Bottom 25%',note:'Foundation stage. Every session is compounding development. Focus on quality and consistency over score.' }
+        Elite:       { range:'222+ reps', pct:'Top 5%',    note:'Top 5% Scaled Women ไทย Fitness ถึง Entry Point RX แล้ว มาตรฐานท่าทางเป็นอุปสรรคสุดท้ายเท่านั้น' },
+        Competitive: { range:'185–221',   pct:'Top 25%',   note:'Top 25% Scaled Women สนามไทย Performance แข็งแกร่ง การประเมิน RX Movement Standards เป็น Step ต่อไปที่สมเหตุสมผล' },
+        Solid:       { range:'163–184',   pct:'Top 50%',   note:'ที่หรือเหนือค่ากลาง Scaled Women ฐานดี การพัฒนา Movement Limiter หลักให้ผลชัดเจนและรวดเร็ว' },
+        Developing:  { range:'148–162',   pct:'Top 75%',   note:'กำลังพัฒนา Engine และ Movement ไปพร้อมกัน Consistency ในการเข้าคลาสคือตัวแปรที่ทรงพลังที่สุดในช่วงนี้' },
+        Beginner:    { range:'< 148 reps',pct:'Bottom 25%',note:'ช่วง Foundation ทุก session กำลัง compound พัฒนาการ เน้น Quality และ Consistency มากกว่า Score' }
       }
     }
   }
 };
 
 const GUIDANCE = [
-  { id:'competitive', icon:'🏆', label:'COMPETITIVE RX', sub:'Top 5–25% Thailand', col:'#f59e0b',
-    strengths:'Engine verified and consistent. Movement efficiency solid across workout types.',
-    focus:'Tiebreak optimization — in dense score zones, 1 rep = multiple rank positions. Tiebreak time from rep 1.',
-    strategy:'Study the score cluster map. Know which split target equals your percentile goal. Race the plan, not the field.',
-    training:'Gymnastics cycling under fatigue — sets of 5–7 at end of conditioning pieces, not fresh. Barbell cycling at 70–80% max for tempo, not load.',
-    expectation:'P90+ requires near-unbroken gymnastics under fatigue. That is a specific skill outcome, not a general fitness outcome.' },
-  { id:'borderline', icon:'⚡', label:'BORDERLINE RX', sub:'P25–P50 Thailand RX', col:'#B4E50D',
-    strengths:'Engine is functional for RX volume. Gritty competitor mindset. Enough to finish all rounds.',
-    focus:'Identify which 1–2 movements are costing you the most reps per workout. Train those specifically.',
-    strategy:'Conservative early is profitable. Do NOT pace with P75+ athletes in rounds 1–2. You run a different race.',
-    training:'Gymnastics cycling efficiency under fatigue + barbell cycling at competitive tempo (70–80% max, not casual singles).',
-    expectation:'P50 Thailand RX is achievable in 1–2 Open seasons with targeted, specific training — not just attending more classes.' },
-  { id:'scaled', icon:'📈', label:'STRONG SCALED', sub:'Top 10% Scaled', col:'#3b82f6',
-    strengths:'Your engine may already exceed the bottom of the RX field. Fitness is likely sufficient.',
-    focus:'The question is not fitness — it\'s movement standard. Check the RX/Scaled overlap for your score.',
-    strategy:'If overlap analysis shows you score above RX bottom quartile → register RX next Open. Give yourself 6 months to train RX standards.',
-    training:'RX movement standards: pull-ups, toes-to-bar, HSPU, barbell cycling. Not more conditioning — the fitness is likely already there.',
-    expectation:'Top 40% of RX in the following Open season is realistic with focused movement standards work over 6 months.' },
-  { id:'recreational', icon:'🏅', label:'RECREATIONAL', sub:'Participation focus', col:'#6366f1',
-    strengths:'Community mindset. Consistent attendance. Here for the right reason.',
-    focus:'Completion over score. Community over competition.',
-    strategy:'Go 20% slower than you think is right in round 1. Open workouts punish ego pacing more than any other format.',
-    training:'Movement quality, consistent class attendance, one skill goal per training quarter.',
-    expectation:'Choose Scaled without hesitation if any RX movement is unsafe. A Scaled score is real data. A bad RX score from the wrong division tells you nothing.' },
-  { id:'first-timer', icon:'🎯', label:'FIRST-TIMER', sub:'First Open experience', col:'#10b981',
-    strengths:'Curiosity and openness. No bad habits to unlearn. High adaptation potential.',
-    focus:'Learn the process first: judging standards, score submission, video requirements, division selection.',
-    strategy:'When uncertain about division → choose Scaled. You can always move up next year.',
-    training:'Nothing dramatic before your first Open. Do not attempt movements you have never trained just because it is happening.',
-    expectation:'Your first Open score is baseline data, not a verdict. Use it to identify 2–3 training targets for the next 6 months.' },
-  { id:'crossover', icon:'🔄', label:'CROSSOVER ATHLETE', sub:'Runner / HYROX / Gym', col:'#f97316',
-    strengths:'You have transferable fitness. The type depends on your background — engine (runner/HYROX) or strength (gym).',
-    focus:'Identify your specific CrossFit skill gaps. They differ significantly by background.',
-    strategy:'Runner: build upper body pulling first. HYROX: barbell technique first. Gym: build aerobic base first.',
-    training:'8-week targeted plan based on your background. Engine athletes: gymnastics. Strength athletes: aerobic base + barbell cycling.',
-    expectation:'Scaled is the right division for your first Open. With 12 months of CrossFit-specific training, RX is a realistic second Open goal.' }
+  { id:'first-timer', icon:'�', label:'มือใหม่ CrossFit', sub:'ประสบการณ์ < 1 ปี', col:'#10b981',
+    strengths:'ยังไม่มีนิสัยที่ผิด · ปรับตัวได้เร็ว · เปิดรับการเรียนรู้สูง · ทุก session คือ gain',
+    focus:'เรียนรู้ขั้นตอนก่อน: มาตรฐานท่าทาง, การส่งคะแนน, ข้อกำหนด Division — ทำถูกดีกว่าทำเร็ว',
+    strategy:'เลือก Scaled โดยไม่ต้องลังเล ถ้าท่าใดยังทำไม่ได้หรือไม่ปลอดภัย คะแนน Scaled จริงๆ ดีกว่าคะแนน RX ที่ไม่ได้มาตรฐาน',
+    training:'อย่าเปลี่ยนโปรแกรมก่อนแข่ง · เน้นคุณภาพท่าทาง · เข้าคลาสสม่ำเสมอ · อุ่นเครื่อง 10 นาที: 400m jog + arm circles + air squat 3×10',
+    expectation:'คะแนน Open แรกคือ baseline — ไม่ใช่คำตัดสินความสามารถ ใช้มันเพื่อหา 2–3 เป้าหมายฝึกในอีก 6 เดือนข้างหน้า' },
+  { id:'runner', icon:'🏃', label:'สายวิ่ง / HYROX', sub:'Engine ดี · Gymnastics ยังน้อย', col:'#3b82f6',
+    strengths:'ระบบหัวใจ-ปอดแข็งแกร่ง · ทนต่อความเหนื่อยได้ดี · Pacing sense ดีกว่าคนส่วนใหญ่',
+    focus:'ช่องว่างหลักคือ Upper Body Pulling — Pull-up, Toes-to-bar, HSPU · ไม่ใช่ Engine ที่ต้องพัฒนา',
+    strategy:'ใช้ Engine ที่มีอยู่ให้เป็นประโยชน์ — Pacing ดีกว่าคู่แข่งเกือบทุกคน · อย่าให้ท่า Gymnastics หยุดคุณได้',
+    training:'8 สัปดาห์เน้น: Kipping Pull-up · Toes-to-bar · Barbell Cycling · อุ่นเครื่อง: 3 rounds of 5 pull-up + 10 kip swing + 15 hollow rock',
+    expectation:'Scaled คือ Division ที่เหมาะสำหรับ Open แรก · ด้วยการฝึก Gymnastics 12 เดือน RX เป็นเป้าหมายที่ทำได้จริง' },
+  { id:'strength', icon:'🏋️', label:'สายยกเวท / Strength', sub:'แข็งแกร่ง · Aerobic Base ยังน้อย', col:'#f97316',
+    strengths:'ความแข็งแกร่งสูง · Barbell comfortable · ท่า Gymnastics บางท่าได้เปรียบ · Rep ต่อ set สูง',
+    focus:'ช่องว่างหลักคือ Aerobic Base — CrossFit Open ต้องการ Engine ต่อเนื่อง 12–20 นาที ไม่ใช่แค่ 1 RM',
+    strategy:'ระวัง: อย่าออกสตาร์ทเร็วเกินไปใน Round แรก · ความแข็งแกร่งจะไม่ช่วยถ้าหัวใจ-ปอดไม่พร้อม',
+    training:'8 สัปดาห์เน้น: Zone 2 Cardio 3×/สัปดาห์ · Barbell Cycling ที่ 70% 1RM · อุ่นเครื่อง: 5 min row/bike + 10 deadlift empty bar',
+    expectation:'ด้วย Aerobic Base ที่ดีขึ้น Top 50% สนามไทยเป็นเป้าหมายที่สมเหตุสมผลใน 1 ซีซั่น' },
+  { id:'commercial', icon:'💪', label:'สายคอมเมอร์เชียลยิม', sub:'Fitness ทั่วไป · เพิ่งลอง CrossFit', col:'#6366f1',
+    strengths:'มีฐาน Fitness บ้าง · Familiar กับ Barbell · มีวินัยในการออกกำลังกาย · Body composition ดี',
+    focus:'CrossFit Open ต้องการ Gymnastics Skill ที่ Commercial Gym ไม่ได้ฝึก — Pull-up, T2B, Double-under',
+    strategy:'เลือก Scaled · อย่าพยายาม RX ถ้ายังทำ Pull-up ไม่ได้ · ให้ตัวเลขบอกความจริง ไม่ใช่ Ego',
+    training:'เรียนรู้ Kipping Pull-up · Toes-to-bar · Double-under · เข้า CrossFit Class จริงๆ 3×/สัปดาห์ อุ่นเครื่อง: 50 DU + 10 pull-up + 5 ring dip',
+    expectation:'ปีที่ 1: Skill Development · ปีที่ 2: Top 50% Scaled · ปีที่ 3: RX — เป็น Timeline ที่สมจริงและยั่งยืน' },
+  { id:'intermediate', icon:'⚡', label:'เล่น CrossFit มาบ้าง', sub:'P25–P75 สนามไทย', col:'#B4E50D',
+    strengths:'Engine ทำงานได้ · Gymnastics พอทำได้ · รู้ว่าตัวเองถนัดอะไร · ผ่าน Open มาแล้วอย่างน้อย 1 ครั้ง',
+    focus:'ระบุว่า 1–2 ท่าใดคิดเงินคุณมากที่สุดต่อ Workout แล้วซ้อมท่านั้นโดยตรง ไม่ใช่ซ้อมทุกอย่างเท่ากัน',
+    strategy:'Conservative Early ให้กำไร · อย่า Pace ตาม P75+ ใน Round 1–2 · คุณวิ่งเกมต่างกัน เกมของคุณคือ Consistency',
+    training:'Gymnastics Cycling ใต้ความเหนื่อย · Barbell Cycling ที่ 70–80% 1RM แบบ Tempo · อุ่นเครื่อง: AMRAP 5 min: 5 T2B + 5 pull-up + 5 power clean @light',
+    expectation:'P50 สนามไทยทำได้ใน 1–2 Open Season ด้วยการฝึกที่เจาะจง ไม่ใช่แค่ไปคลาสมากขึ้น' },
+  { id:'competitive', icon:'🏆', label:'Competitive RX', sub:'Top 5–25% สนามไทย', col:'#f59e0b',
+    strengths:'Engine ผ่านการพิสูจน์ · Gymnastics Efficiency ดี · Consistent · รู้จัก Pacing ของตัวเอง',
+    focus:'Tiebreak Optimization — ในโซนคะแนนชิด 1 rep = หลายอันดับ · จับเวลาจาก Rep แรกของ Tiebreak movement',
+    strategy:'ศึกษา Score Cluster Map · รู้ว่า Split Target ใดเท่ากับ Percentile Goal ของคุณ · แข่งกับแผน ไม่ใช่คู่แข่ง',
+    training:'Gymnastics Cycling ใต้ความเหนื่อย sets 5–7 ท้าย Conditioning · Barbell Cycling ที่ 70–80% · อุ่นเครื่อง: Build-up sets + 3×3 อุณหภูมิ CNS',
+    expectation:'P90+ ต้องการ Near-unbroken Gymnastics ใต้ความเหนื่อย — เป็น Skill Outcome เฉพาะ ไม่ใช่ Fitness ทั่วไป' }
 ];
 
 const BANDS_META = [
@@ -691,6 +691,11 @@ let wk = '26.1', div = 'rx-men', chart = null;
 
 /* ─── INIT ─────────────────────────────────────────────────────── */
 function init(){ render(); }
+
+function setMobActive(el){
+  document.querySelectorAll('.mob-nav a').forEach(a=>a.classList.remove('mob-active'));
+  el.classList.add('mob-active');
+}
 
 function selectWorkout(w){ wk=w; render(); }
 
@@ -769,7 +774,7 @@ function renderChart(d){
           titleColor:'#3a6400', bodyColor:'#555555',
           titleFont:{family:'Barlow Condensed',weight:'700',size:13},
           callbacks:{
-            label: c=>`  ${c.raw} athletes`,
+            label: c=>`  ${c.raw} นักกีฬา`,
             title: t=>`${t[0].label} reps`
           }
         }
@@ -777,7 +782,7 @@ function renderChart(d){
       scales:{
         x:{ grid:{color:'#e8e8e4'}, ticks:{color:'#888',font:{size:10,family:'Barlow Condensed'}} },
         y:{ grid:{color:'#e8e8e4'}, ticks:{color:'#888',font:{size:10,family:'Barlow Condensed'}},
-            title:{display:true,text:'Athletes',color:'#888',font:{size:10}} }
+            title:{display:true,text:'นักกีฬา',color:'#888',font:{size:10}} }
       }
     }
   });
@@ -796,9 +801,9 @@ function renderClusters(d){
 /* ─── PCT GRID ─────────────────────────────────────────────────── */
 function renderPctGrid(d){
   const rows=[
-    { label:'P10', val:d.pcts.P10, col:'#999',    bar:10,  sub:'Bottom 10%' },
-    { label:'P25', val:d.pcts.P25, col:'#6366f1', bar:25,  sub:'Bottom 25%' },
-    { label:'P50', val:d.pcts.P50, col:'#3b82f6', bar:50,  sub:'Median' },
+    { label:'P10', val:d.pcts.P10, col:'#999',    bar:10,  sub:'ล่าง 10%' },
+    { label:'P25', val:d.pcts.P25, col:'#6366f1', bar:25,  sub:'ล่าง 25%' },
+    { label:'P50', val:d.pcts.P50, col:'#3b82f6', bar:50,  sub:'ค่ากลาง' },
     { label:'P75', val:d.pcts.P75, col:'#f97316', bar:75,  sub:'Top 25%' },
     { label:'P90', val:d.pcts.P90, col:'#3a6400', bar:90,  sub:'Top 10%' },
     { label:'P95', val:d.pcts.P95, col:'#c07000', bar:95,  sub:'Top 5%' },
@@ -841,22 +846,22 @@ function renderExtraStats(d){
 /* ─── TIEBREAK ──────────────────────────────────────────────────── */
 function renderTiebreak(d){
   const tb=d.tb;
-  document.getElementById('tb-headline').textContent = `${tb.range} reps — Dense Zone`;
+  document.getElementById('tb-headline').textContent = `${tb.range} reps — โซนคะแนนชิด`;
   document.getElementById('tb-body').innerHTML = `
     <strong style="color:var(--text);">${tb.athletes} คน</strong> มีคะแนนช่วงนี้ ใน
     <strong style="color:var(--text);">${tb.ranks} อันดับ</strong>.
-    ในโชนนี้ <strong style="color:var(--lime-text);">1 rep ≈ ${tb.sens} อันดับ</strong> ในสนามไทย.`;
+    ในโซนนี้ <strong style="color:var(--lime-text);">1 rep ≈ ${tb.sens} อันดับ</strong> ในสนามไทย.`;
 }
 
 /* ─── OVERLAP ───────────────────────────────────────────────────── */
 function renderOverlap(d){
   const el=document.getElementById('overlap-content');
   if(!d.overlap){
-    el.innerHTML=`<div class="overlap-no" style="padding:12px 14px;font-size:.8rem;">No significant RX/Scaled overlap detected in this division.</div>`; return;
+    el.innerHTML=`<div class="overlap-no" style="padding:12px 14px;font-size:.8rem;">ไม่พบโซนทับซ้อนระหว่าง RX และ Scaled ใน Division นี้</div>`; return;
   }
   el.innerHTML=`
     <div class="overlap-yes" style="padding:6px 12px;display:inline-flex;align-items:center;gap:6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;">
-      ● Overlap Detected
+      ● พบโซนทับซ้อน
     </div>
     <p style="font-size:.8rem;color:var(--muted);line-height:1.7;">
       คะแนนสูงสุดของ Scaled ${d.label.split(' ')[1]} (<strong style="color:var(--text);">${d.overlap.range} reps</strong>) ทับซ้อนกับ
@@ -864,8 +869,7 @@ function renderOverlap(d){
       <strong style="color:var(--text);">${d.overlap.count} คน Scaled</strong> จะอยู่ใน 20% ล่างของ RX.
     </p>
     <div style="margin-top:12px;background:#f0f9e0;border:1px solid #b4d870;padding:12px 14px;font-size:.78rem;color:#3a6400;line-height:1.6;">
-      <strong>If you're Scaled and scoring ${d.overlap.range}+</strong> — you may be ready to move to RX next Open.
-      Check the Division Readiness section for a complete assessment.
+      <strong>ถ้าคุณเล่น Scaled และได้คะแนน ${d.overlap.range}+ reps</strong> — คุณอาจพร้อมย้ายไป RX ใน Open ปีหน้าแล้ว
     </div>`;
 }
 
@@ -930,7 +934,7 @@ function selectType(id){
       </div>
       <button onclick="document.getElementById('guidance-detail').style.display='none'" style="color:var(--muted2);font-size:1.2rem;background:transparent;border:none;cursor:pointer;padding:4px;">✕</button>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:3px;margin-bottom:3px;">
+    <div class="grid-2-1" style="gap:3px;margin-bottom:3px;">
       ${[
         { label:'จุดแข็ง',              text:g.strengths, icon:'💪', col:'#f0f9e8', bc:'#c0e090' },
         { label:'โฟกัสหลัก',          text:g.focus,     icon:'🎯', col:'#f0f0fc', bc:'#c0c0e8' },
