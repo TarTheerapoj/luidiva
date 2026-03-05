@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,7 @@
     .w-tab{background:transparent;border:1px solid var(--border2);color:var(--muted);padding:6px 20px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
     .w-tab:hover{border-color:#444;color:#ccc;}
     .w-tab.active{background:var(--lime);border-color:var(--lime);color:#0c0c0c;}
-    .w-tab.soon{background:transparent;border:1px dashed #222;color:#333;cursor:default;pointer-events:none;}
+    .w-tab.soon{background:transparent;border:1px dashed #303030;color:#555;cursor:default;pointer-events:none;}
 
     .d-tab{background:transparent;border-bottom:2px solid transparent;color:#888;padding:10px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;white-space:nowrap;}
     .d-tab:hover{color:#e0e0e0;}
@@ -117,6 +117,45 @@
     /* ── TABLE ── */
     .pct-row{display:grid;grid-template-columns:60px 1fr 90px 60px;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--border);}
     .pct-row:last-child{border-bottom:none;}
+
+    /* ── MOBILE BOTTOM NAV ── */
+    .mob-nav{display:none;}
+    @media(max-width:767px){
+      .mob-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:100;
+        background:#090909;border-top:1px solid #252525;height:56px;}
+      .mob-nav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+        gap:3px;color:#666;text-decoration:none;font-family:'Barlow Condensed',sans-serif;
+        font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+        transition:color .15s;border-top:2px solid transparent;}
+      .mob-nav a:hover,.mob-nav a.mob-active{color:var(--lime);border-top-color:var(--lime);}
+      .mob-nav a svg{width:18px;height:18px;stroke-width:2;}
+      body{padding-bottom:56px;}
+    }
+
+    /* ── RESPONSIVE GRID HELPERS ── */
+    .grid-2-1{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;}
+    @media(max-width:640px){.grid-2-1{grid-template-columns:1fr;}}
+    .grid-5-2{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;}
+    @media(max-width:640px){.grid-5-2{grid-template-columns:repeat(2,1fr);gap:6px;}}
+    .grid-2-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    @media(max-width:640px){.grid-2-2{grid-template-columns:1fr;}}
+
+    /* ── QUICK INSIGHT BAR ── */
+    .insight-bar{background:#0d1300;border-bottom:1px solid #1e2d00;}
+    .insight-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;
+      background:#111800;border:1px solid #253000;font-size:.78rem;
+      font-family:'Barlow Condensed',sans-serif;font-weight:600;color:#c8d890;letter-spacing:.02em;}
+    .insight-pill strong{color:var(--lime);}
+
+    /* ── CTA BUTTON ── */
+    .cta-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;
+      font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;
+      letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;
+      transition:all .15s;border:none;}
+    .cta-primary{background:var(--lime);color:#0c0c0c;}
+    .cta-primary:hover{background:#c8f920;}
+    .cta-secondary{background:transparent;color:var(--text);border:1px solid var(--border3);}
+    .cta-secondary:hover{border-color:var(--lime);color:var(--lime);}
   </style>
 </head>
 <body>
@@ -130,7 +169,7 @@
   </div>
   <div class="flex items-center gap-4">
     <span class="chip">🇹🇭 Thailand Only</span>
-    <span class="chip" style="color:#B4E50D;border-color:#1e2e00;">● Live  ·  Workout 1 of 3</span>
+    <span class="chip" style="color:#B4E50D;border-color:#1e2e00;">อัปเดต: 5 มี.ค. 2026 · สนามไทย</span>
   </div>
 </div>
 
@@ -174,18 +213,23 @@
           <span style="font-size:clamp(1.2rem,3vw,2rem);color:#888;font-weight:700;">THAILAND FIELD INTELLIGENCE</span>
         </h1>
         <p class="mt-3 text-sm" style="color:var(--muted);max-width:420px;line-height:1.6;">
-          Thailand-only percentiles · Score bands · Performance interpretation · Athlete guidance.
-          Not just a leaderboard — a field intelligence system.
+          เปอร์เซ็นไทล์เฉพาะสนามไทย · Score Bands · วิเคราะห์ผลงาน · คำแนะนำสำหรับนักกีฬา
         </p>
-        <div class="mt-2" style="font-size:.74rem;color:var(--muted);">RX Men N=253 · RX Women N=190 · Scaled Men N=30 · Scaled Women N=79</div>
+        <div class="mt-2" style="font-size:.76rem;color:var(--muted);">RX Men N=253 · RX Women N=190 · Scaled Men N=30 · Scaled Women N=79</div>
         <!-- Workout badge -->
-        <div class="mt-5 flex flex-wrap items-center gap-3">
+        <div class="mt-4 flex flex-wrap items-center gap-3">
           <div style="background:var(--lime);color:#0c0c0c;padding:5px 16px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;">
-            AMRAP 15 MIN · REPS
+            AMRAP 15 นาที · นับ REPS
           </div>
-          <span class="chip">Data: Mar 5, 2026</span>
-          <span class="chip">N = 552 Thai Athletes</span>
+          <span class="chip">อัปเดต 5 มี.ค. 2026</span>
+          <span class="chip">N = 552 นักกีฬาไทย</span>
         </div>
+        <!-- CTA buttons -->
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a href="#calculator" class="cta-btn cta-primary">&#9654; คำนวณ Percentile ของฉัน</a>
+          <a href="#bands" class="cta-btn cta-secondary">ดู Score Bands</a>
+        </div>
+        <p style="font-size:.72rem;color:var(--muted2);margin-top:8px;">① เลือก Division → ② ใส่คะแนน → ③ ดูอันดับในสนามไทย</p>
       </div>
 
       <!-- Right: Big numbers -->
@@ -234,6 +278,13 @@
   </div>
 </div>
 
+<!-- ════════════════════════════════════════ QUICK INSIGHT BAR ════ -->
+<div class="insight-bar" id="quick-insight-bar">
+  <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-3 flex flex-wrap gap-2" id="quick-insight-pills">
+    <!-- filled by JS -->
+  </div>
+</div>
+
 <!-- ════════════════════════════════════════ MAIN CONTENT ════ -->
 <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-8" id="analysis">
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
@@ -246,7 +297,7 @@
         <div style="padding:20px 20px 0;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
           <div>
             <div class="section-label">Score Distribution</div>
-            <h2 class="f1 font-bold text-white mt-1" style="font-size:1.1rem;" id="chart-title">RX Men · Thailand · N=347</h2>
+            <h2 class="f1 font-bold text-white mt-1" style="font-size:1.1rem;" id="chart-title">—</h2>
           </div>
           <div class="flex items-center gap-2">
             <div style="width:10px;height:10px;background:var(--lime);"></div>
@@ -265,9 +316,9 @@
         <div style="padding:20px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
           <div>
             <div class="section-label">Percentile Thresholds</div>
-            <h2 class="f1 font-bold text-white mt-1" style="font-size:1.1rem;" id="pct-div-label">RX Men · Thailand</h2>
+            <h2 class="f1 font-bold text-white mt-1" style="font-size:1.1rem;" id="pct-div-label">—</h2>
           </div>
-          <span class="chip" id="pct-n-chip">N = 347</span>
+          <span class="chip" id="pct-n-chip">—</span>
         </div>
 
         <!-- P-grid -->
@@ -276,7 +327,7 @@
         </div>
 
         <!-- Extra stats row -->
-        <div style="padding:0 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;" id="extra-stats"></div>
+        <div style="padding:0 20px 20px;" class="grid-2-2" id="extra-stats"></div>
       </div>
 
       <!-- Tiebreak Zone -->
@@ -303,13 +354,13 @@
       <div class="card" style="border-top:3px solid var(--lime);">
         <div style="padding:20px 20px 16px;border-bottom:1px solid var(--border);">
           <div class="section-label">Percentile Calculator</div>
-          <h2 class="f1 font-bold text-white mt-1" style="font-size:1.1rem;">Where Do You Stand?</h2>
-          <p style="font-size:.75rem;color:var(--muted);margin-top:4px;">อยู่ตรงไหนในไทย — รู้ได้ทันที</p>
+          <h2 class="f1 font-bold text-white mt-1" style="font-size:1.1rem;">คุณอยู่ตรงไหนในสนามไทย?</h2>
+          <p style="font-size:.75rem;color:var(--muted);margin-top:4px;">ใส่คะแนน 26.1 ของคุณ — รู้ผลทันที</p>
         </div>
         <div style="padding:20px;">
           <input type="number" id="score-input" class="score-input" placeholder="—" min="1" max="600" oninput="calcPercentile()" />
-          <div style="font-size:.7rem;color:var(--muted2);text-align:center;margin-top:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;">
-            Enter your score in reps
+          <div style="font-size:.78rem;color:var(--muted);text-align:center;margin-top:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;">
+            ใส่คะแนนของคุณ (จำนวน reps)
           </div>
 
           <!-- Result -->
@@ -381,7 +432,7 @@
     </div>
 
     <!-- 5 band cards -->
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;" id="band-cards" class="mb-4"></div>
+    <div class="grid-5-2 mb-4" id="band-cards"></div>
 
     <!-- Band detail panel -->
     <div class="card fade-up" id="band-detail" style="display:none;margin-top:4px;border-top:3px solid var(--lime);padding:24px 28px;"></div>
@@ -394,13 +445,13 @@
 
     <div style="margin-bottom:20px;">
       <div class="section-label mb-2">Athlete Guidance Engine</div>
-      <h2 class="f1 font-black text-white" style="font-size:1.9rem;letter-spacing:-.01em;">WHO ARE YOU?</h2>
-      <p style="font-size:.82rem;color:var(--muted);margin-top:6px;">เลือกประเภทนักกีฬาของคุณ → รับคำแนะนำที่ออกแบบมาเฉพาะ</p>
+      <h2 class="f1 font-black text-white" style="font-size:1.9rem;letter-spacing:-.01em;">คุณคือนักกีฬาแบบไหน?</h2>
+      <p style="font-size:.85rem;color:var(--muted);margin-top:6px;">เลือกประเภทนักกีฬาของคุณ → รับคำแนะนำที่ออกแบบมาเฉพาะ</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px;" id="type-cards" class="mb-4"></div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px;" id="type-cards-2" class="mb-4"></div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px;" id="type-cards-3" class="mb-4"></div>
+    <div class="grid-2-1 mb-4" id="type-cards"></div>
+    <div class="grid-2-1 mb-4" id="type-cards-2"></div>
+    <div class="grid-2-1 mb-4" id="type-cards-3"></div>
 
     <!-- Guidance detail -->
     <div class="card fade-up" id="guidance-detail" style="display:none;margin-top:4px;border-top:3px solid var(--lime);padding:28px;"></div>
@@ -411,7 +462,7 @@
 <div style="border-top:1px solid var(--border);background:#0a0a0a;">
   <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-10">
     <div class="section-label mb-5">Next Workouts</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+    <div class="grid-2-1">
       <div class="card stripe-bg" style="padding:24px;border-top:3px solid #222;opacity:.6;">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
           <div style="width:36px;height:36px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;color:#444;font-size:1.1rem;flex-shrink:0;">2</div>
@@ -420,7 +471,7 @@
             <div style="font-size:.72rem;color:#7a6a00;font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;">Announced Week 2</div>
           </div>
         </div>
-        <p style="font-size:.78rem;color:var(--muted2);line-height:1.6;">การวิเคราะห์ 26.2 สำหรับนักกีฬาไทยจะอัปเดตทันทีหลัง CrossFit ประกาศ workout</p>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.6;">การวิเคราะห์ 26.2 สำหรับนักกีฬาไทยจะอัปเดตทันทีหลัง CrossFit ประกาศ workout</p>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;">
           <span class="chip">Distribution</span><span class="chip">Percentile Calculator</span><span class="chip">Score Bands</span>
         </div>
@@ -433,7 +484,7 @@
             <div style="font-size:.72rem;color:#7a6a00;font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;">Announced Week 3</div>
           </div>
         </div>
-        <p style="font-size:.78rem;color:var(--muted2);line-height:1.6;">หลังครบ 3 workouts: Overall Archetype · Athlete Profile · Full Open Report</p>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.6;">หลังครบ 3 workouts: Overall Archetype · Athlete Profile · Full Open Report</p>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;">
           <span class="chip">Overall Archetype</span><span class="chip">Full Open Report</span><span class="chip">Field Report 2026</span>
         </div>
@@ -441,6 +492,26 @@
     </div>
   </div>
 </div>
+
+<!-- ════════════════════════════════════════ MOBILE BOTTOM NAV ════ -->
+<nav class="mob-nav" role="navigation">
+  <a href="#analysis" onclick="setMobActive(this)" class="mob-active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    วิเคราะห์
+  </a>
+  <a href="#calculator" onclick="setMobActive(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    คำนวณ
+  </a>
+  <a href="#bands" onclick="setMobActive(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Score
+  </a>
+  <a href="#guidance" onclick="setMobActive(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Guidance
+  </a>
+</nav>
 
 <!-- ════════════════════════════════════════ FOOTER ════ -->
 <footer style="background:#080808;border-top:1px solid var(--border);">
@@ -450,12 +521,12 @@
       <div class="f1 font-black text-white" style="font-size:1rem;letter-spacing:-.01em;">
         ลุยดิวะ <span style="color:var(--lime);font-size:.8rem;font-weight:600;margin-left:6px;">CrossFit Open Thailand</span>
       </div>
-      <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">
-        Data: CrossFit.com · Thailand athletes only · Updated after each judging window
+      <div style="font-size:.75rem;color:var(--muted);margin-top:4px;">
+        Data: CrossFit.com · นักกีฬาไทยเท่านั้น · อัปเดตหลังสิ้นสุด judging window
       </div>
     </div>
-    <div style="font-size:.7rem;color:var(--muted2);max-width:380px;text-align:right;">
-      ⚠ All score interpretations are probabilistic and based on score band patterns, not individual-level analysis.
+    <div style="font-size:.75rem;color:var(--muted);max-width:380px;text-align:right;">
+      ⚠ การตีความหมายคะแนนทั้งหมดเป็นการประเมินเชิงสถิติ ไม่ใช่การวิเคราะห์ระดับบุคคล
     </div>
   </div>
 </footer>
@@ -637,6 +708,24 @@ function render(){
   renderOverlap(d);
   renderBands(d);
   renderGuidanceCards();
+  renderQuickInsight(d);
+}
+
+/* ─── QUICK INSIGHT BAR ────────────────────────────────────────── */
+function renderQuickInsight(d){
+  const p = d.pcts;
+  const topScore = d.dist.labels[d.dist.labels.length-1];
+  const densestBin = d.dist.counts.indexOf(Math.max(...d.dist.counts));
+  const densestLabel = d.dist.labels[densestBin];
+  const pills = [
+    { icon:'🎯', text:`ค่ากลาง (P50) <strong>${p.P50} reps</strong>` },
+    { icon:'⚡', text:`Top 25% เริ่มที่ <strong>${p.P75} reps</strong>` },
+    { icon:'📊', text:`ช่วงแน่นที่สุด: <strong>${densestLabel} reps</strong>` },
+    { icon:'🏆', text:`Top 10% เริ่มที่ <strong>${p.P90} reps</strong>` },
+    { icon:'👥', text:`N = <strong>${d.n}</strong> นักกีฬา` },
+  ];
+  document.getElementById('quick-insight-pills').innerHTML =
+    pills.map(p=>`<span class="insight-pill">${p.icon} ${p.text}</span>`).join('');
 }
 
 /* ─── CHART ────────────────────────────────────────────────────── */
@@ -674,9 +763,9 @@ function renderChart(d){
         }
       },
       scales:{
-        x:{ grid:{color:'#161616'}, ticks:{color:'#444',font:{size:10,family:'Barlow Condensed'}} },
-        y:{ grid:{color:'#161616'}, ticks:{color:'#444',font:{size:10,family:'Barlow Condensed'}},
-            title:{display:true,text:'Athletes',color:'#333',font:{size:10}} }
+        x:{ grid:{color:'#1e1e1e'}, ticks:{color:'#777',font:{size:10,family:'Barlow Condensed'}} },
+        y:{ grid:{color:'#1e1e1e'}, ticks:{color:'#777',font:{size:10,family:'Barlow Condensed'}},
+            title:{display:true,text:'Athletes',color:'#777',font:{size:10}} }
       }
     }
   });
@@ -688,7 +777,7 @@ function renderClusters(d){
     <div style="display:inline-flex;align-items:center;gap:6px;background:#120d00;border:1px solid #2a1c00;padding:4px 12px;font-size:.72rem;">
       <span style="color:#f97316;font-size:.7rem;">▲</span>
       <span style="color:#c97000;font-family:'Barlow Condensed',sans-serif;font-weight:700;">${c.score} REPS CLUSTER</span>
-      <span style="color:#444;">${c.size} athletes · ${c.note}</span>
+      <span style="color:#888;">${c.size} athletes · ${c.note}</span>
     </div>`).join('');
 }
 
@@ -851,15 +940,18 @@ function selectType(id){
 }
 
 /* ─── CALCULATOR ────────────────────────────────────────────────── */
+function safeDivide(num, den){
+  return den === 0 ? 0 : num / den;
+}
 function getPct(score, d){
   const p=d.pcts;
-  if(score>=p.P95) return Math.min(99, Math.round(95+(score-p.P95)/(p.P95-p.P90)*4));
-  if(score>=p.P90) return Math.round(90+(score-p.P90)/(p.P95-p.P90)*5);
-  if(score>=p.P75) return Math.round(75+(score-p.P75)/(p.P90-p.P75)*15);
-  if(score>=p.P50) return Math.round(50+(score-p.P50)/(p.P75-p.P50)*25);
-  if(score>=p.P25) return Math.round(25+(score-p.P25)/(p.P50-p.P25)*25);
-  if(score>=p.P10) return Math.round(10+(score-p.P10)/(p.P25-p.P10)*15);
-  return Math.max(1, Math.round(score/p.P10*10));
+  if(score>=p.P95) return Math.min(99, Math.round(95 + safeDivide(score-p.P95, p.P95-p.P90)*4));
+  if(score>=p.P90) return Math.round(90 + safeDivide(score-p.P90, p.P95-p.P90)*5);
+  if(score>=p.P75) return Math.round(75 + safeDivide(score-p.P75, p.P90-p.P75)*15);
+  if(score>=p.P50) return Math.round(50 + safeDivide(score-p.P50, p.P75-p.P50)*25);
+  if(score>=p.P25) return Math.round(25 + safeDivide(score-p.P25, p.P50-p.P25)*25);
+  if(score>=p.P10) return Math.round(10 + safeDivide(score-p.P10, p.P25-p.P10)*15);
+  return Math.max(1, Math.round(safeDivide(score, p.P10)*10));
 }
 
 function getTier(pct){
