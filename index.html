@@ -397,13 +397,20 @@
 
             <!-- Score insight block -->
             <div style="margin-top:12px;border-left:3px solid var(--lime);padding:12px 14px;background:var(--lime-dark);" id="result-insight"></div>
+
+            <!-- Share button -->
+            <button onclick="generateShareCard()" style="margin-top:14px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 0;background:transparent;border:1px solid var(--border3);color:#ccc;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='#B4E50D';this.style.color='#B4E50D'" onmouseout="this.style.borderColor='var(--border3)';this.style.color='#ccc'">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+              บันทึกภาพ / แชร์ผลของฉัน
+            </button>
+            <canvas id="share-canvas" style="display:none;"></canvas>
           </div>
 
           <!-- Placeholder -->
           <div id="calc-placeholder" style="padding:36px 0;text-align:center;">
             <div style="font-size:2rem;margin-bottom:10px;opacity:.3;">⚡</div>
-            <p style="font-size:.8rem;color:var(--muted2);font-family:'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;line-height:1.8;">
-              Type your score<br/>to see your Thailand percentile
+            <p style="font-size:.82rem;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;line-height:1.8;">
+              ใส่คะแนน<br/>เพื่อดูอันดับในสนามไทย
             </p>
           </div>
         </div>
@@ -993,6 +1000,137 @@ function calcPercentile(){
   document.getElementById('result-insight').innerHTML = `
     <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-bottom:6px;">${tier.label} · ${d.bands[bandId]?.pct||''}</div>
     <div style="font-size:.85rem;color:#c0c0c0;line-height:1.8;">${note}</div>`;
+}
+
+/* ─── SHARE CARD ─────────────────────────────────────────────────── */
+function generateShareCard(){
+  const scoreVal = parseInt(document.getElementById('score-input').value);
+  if(!scoreVal||scoreVal<1) return;
+
+  const d    = DATA[wk][div];
+  const pct  = getPct(scoreVal, d);
+  const tier = getTier(pct);
+  const estRank = Math.max(1, Math.round((1-pct/100)*d.n));
+
+  const S = 1080;
+  const canvas = document.getElementById('share-canvas');
+  canvas.width  = S;
+  canvas.height = S;
+  const ctx = canvas.getContext('2d');
+
+  /* ── background ── */
+  ctx.fillStyle = '#0e0e0e';
+  ctx.fillRect(0, 0, S, S);
+
+  /* ── diagonal stripes ── */
+  ctx.save();
+  ctx.strokeStyle = 'rgba(255,255,255,0.025)';
+  ctx.lineWidth = 2;
+  for(let i = -S; i < S*2; i += 22){
+    ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i+S, S); ctx.stroke();
+  }
+  ctx.restore();
+
+  /* ── top lime bar ── */
+  ctx.fillStyle = '#B4E50D';
+  ctx.fillRect(0, 0, S, 6);
+
+  /* ── bottom lime bar ── */
+  ctx.fillStyle = '#B4E50D';
+  ctx.fillRect(0, S-6, S, 6);
+
+  /* ── left accent stripe ── */
+  ctx.fillStyle = tier.col;
+  ctx.fillRect(0, 6, 8, S-12);
+
+  /* ── brand name ── */
+  ctx.font = '700 52px "Arial","sans-serif"';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'left';
+  ctx.fillText('ลุยดิวะ', 60, 100);
+
+  ctx.font = '400 26px "Arial","sans-serif"';
+  ctx.fillStyle = '#888';
+  ctx.fillText('CrossFit Open Thailand 2026  ·  Workout 26.1', 60, 140);
+
+  /* ── divider ── */
+  ctx.fillStyle = '#252525';
+  ctx.fillRect(60, 162, S-120, 1);
+
+  /* ── PERCENTILE big number ── */
+  const pctText = pct+'th';
+  ctx.textAlign = 'center';
+  ctx.font = '900 280px "Arial Black","Arial","sans-serif"';
+  // gradient fill for percentile
+  const grad = ctx.createLinearGradient(S/2-200, 280, S/2+200, 280);
+  grad.addColorStop(0, '#B4E50D');
+  grad.addColorStop(1, '#d4ff3a');
+  ctx.fillStyle = grad;
+  ctx.fillText(pctText, S/2, 480);
+
+  /* ── PERCENTILE label ── */
+  ctx.font = '700 36px "Arial","sans-serif"';
+  ctx.fillStyle = '#a0a0a0';
+  ctx.fillText('PERCENTILE · THAILAND', S/2, 540);
+
+  /* ── divider ── */
+  ctx.fillStyle = '#252525';
+  ctx.fillRect(60, 570, S-120, 1);
+
+  /* ── score + rank + tier row ── */
+  const cols = [S/2 - 300, S/2, S/2 + 300];
+  const labels = ['SCORE', 'EST. RANK', 'TIER'];
+  const values = [scoreVal+' reps', '#'+estRank+' / '+d.n, tier.label];
+  const valColors = ['#f0f0f0', '#f0f0f0', tier.col];
+
+  cols.forEach((x,i)=>{
+    ctx.font = '700 24px "Arial","sans-serif"';
+    ctx.fillStyle = '#666';
+    ctx.textAlign = 'center';
+    ctx.fillText(labels[i], x, 640);
+
+    ctx.font = '900 52px "Arial Black","Arial","sans-serif"';
+    ctx.fillStyle = valColors[i];
+    ctx.fillText(values[i], x, 710);
+  });
+
+  /* ── division label ── */
+  ctx.fillStyle = '#252525';
+  ctx.fillRect(60, 740, S-120, 1);
+
+  ctx.font = '700 30px "Arial","sans-serif"';
+  ctx.fillStyle = '#888';
+  ctx.textAlign = 'center';
+  ctx.fillText(d.label + '  ·  Thailand Only', S/2, 800);
+
+  /* ── tier description ── */
+  const bandId = pct>=95?'Elite':pct>=75?'Competitive':pct>=50?'Solid':pct>=25?'Developing':'Beginner';
+  const note = d.bands[bandId]?.note || '';
+  ctx.font = '400 22px "Arial","sans-serif"';
+  ctx.fillStyle = '#777';
+  ctx.textAlign = 'center';
+  // wrap text
+  const maxW = S - 160;
+  const words = note.split(' ');
+  let line = '', lines = [], y0 = 850;
+  for(const w of words){
+    const test = line ? line+' '+w : w;
+    if(ctx.measureText(test).width > maxW && line){ lines.push(line); line=w; } else { line=test; }
+  }
+  if(line) lines.push(line);
+  lines.slice(0,2).forEach((l,i)=> ctx.fillText(l, S/2, y0 + i*34));
+
+  /* ── footer watermark ── */
+  ctx.font = '600 22px "Arial","sans-serif"';
+  ctx.fillStyle = '#444';
+  ctx.textAlign = 'center';
+  ctx.fillText('luidiva.com  ·  ลุยดิวะ', S/2, 980);
+
+  /* ── download ── */
+  const link = document.createElement('a');
+  link.download = `luidiva-261-${div}-p${pct}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
 }
 
 /* ─── START ─────────────────────────────────────────────────────── */
