@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ลุยดิวะ | CrossFit Open Thailand 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --lime:#B4E50D; --lime-glow:rgba(180,229,13,.18); --lime-dark:#0f1800;
+      --bg:#0c0c0c; --bg2:#101010; --bg3:#141414; --bg4:#181818;
+      --border:#1c1c1c; --border2:#242424; --border3:#2e2e2e;
+      --text:#f2f2f2; --muted:#777; --muted2:#444;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden;}
+    .f1{font-family:'Barlow Condensed',sans-serif;}
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar{width:4px;height:4px;}
+    ::-webkit-scrollbar-track{background:#080808;}
+    ::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px;}
+
+    /* ── CARD ── */
+    .card{background:var(--bg2);border:1px solid var(--border);}
+    .card-lift{transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer;}
+    .card-lift:hover{transform:translateY(-3px);border-color:#333;box-shadow:0 8px 32px rgba(0,0,0,.5);}
+
+    /* ── LIME ACCENT ── */
+    .lime{color:var(--lime);}
+    .lime-bg{background:var(--lime);}
+    .lime-border{border-color:var(--lime)!important;}
+    .lime-glow{box-shadow:0 0 20px var(--lime-glow);}
+    .lime-text-glow{text-shadow:0 0 20px rgba(180,229,13,.5);}
+    .gradient-lime{background:linear-gradient(90deg,#B4E50D,#d4ff3a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+    /* ── DIAGONAL STRIPE (F1 style) ── */
+    .stripe-bg{
+      background: repeating-linear-gradient(
+        -55deg, transparent, transparent 8px,
+        rgba(255,255,255,.015) 8px, rgba(255,255,255,.015) 10px
+      );
+    }
+
+    /* ── PROGRESS BAR ── */
+    .pbar{height:3px;background:#1e1e1e;border-radius:2px;overflow:hidden;}
+    .pbar-fill{height:100%;background:var(--lime);border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+
+    /* ── TABS ── */
+    .w-tab{background:transparent;border:1px solid var(--border2);color:var(--muted);padding:6px 20px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
+    .w-tab:hover{border-color:#444;color:#ccc;}
+    .w-tab.active{background:var(--lime);border-color:var(--lime);color:#0c0c0c;}
+    .w-tab.soon{background:transparent;border:1px dashed #222;color:#333;cursor:default;pointer-events:none;}
+
+    .d-tab{background:transparent;border-bottom:2px solid transparent;color:var(--muted);padding:10px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .15s;white-space:nowrap;}
+    .d-tab:hover{color:#ccc;}
+    .d-tab.active{border-bottom-color:var(--lime);color:var(--lime);}
+
+    /* ── SCORE INPUT ── */
+    .score-input{
+      background:#0a0a0a;border:1px solid var(--border2);border-radius:2px;
+      color:var(--lime);font-family:'Barlow Condensed',sans-serif;
+      font-size:3.5rem;font-weight:900;text-align:center;width:100%;padding:1.2rem 1rem;
+      outline:none;transition:border-color .2s,box-shadow .2s;letter-spacing:-.02em;
+      appearance:textfield;-moz-appearance:textfield;
+    }
+    .score-input::-webkit-inner-spin-button,.score-input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0;}
+    .score-input:focus{border-color:var(--lime);box-shadow:0 0 0 1px var(--lime-glow),inset 0 0 20px rgba(180,229,13,.03);}
+    .score-input::placeholder{color:#2a2a2a;}
+
+    /* ── BIG STAT ── */
+    .big-stat{font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:1;}
+
+    /* ── BAND CARD ── */
+    .band-card{background:var(--bg3);border:1px solid var(--border);border-top:3px solid transparent;padding:16px 12px;cursor:pointer;transition:all .2s;text-align:center;}
+    .band-card:hover{border-color:#2a2a2a;background:var(--bg4);}
+    .band-card.active{background:var(--bg4);}
+
+    /* ── TYPE CARD ── */
+    .type-card{background:var(--bg3);border:1px solid var(--border);padding:20px 14px;cursor:pointer;transition:all .2s;text-align:center;border-radius:2px;}
+    .type-card:hover{background:var(--bg4);border-color:#2a2a2a;transform:translateY(-2px);}
+    .type-card.active{border-color:var(--lime);}
+
+    /* ── SECTION LABEL ── */
+    .section-label{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);}
+
+    /* ── METRIC CHIP ── */
+    .chip{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border2);padding:4px 12px;font-size:.72rem;color:var(--muted);font-family:'Barlow',sans-serif;letter-spacing:.03em;}
+
+    /* ── DIVIDER ── */
+    .vdivider{width:1px;background:var(--border);flex-shrink:0;}
+
+    /* ── HERO STRIPES (F1 header slash marks) ── */
+    .hero-slash::before{
+      content:'';position:absolute;inset:0;
+      background: repeating-linear-gradient(
+        -65deg, transparent, transparent 40px,
+        rgba(180,229,13,.025) 40px, rgba(180,229,13,.025) 41px
+      );
+      pointer-events:none;
+    }
+
+    /* ── ANIM ── */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    .fade-up{animation:fadeUp .3s ease both;}
+    @keyframes countUp{from{opacity:0;}to{opacity:1;}}
+    .count-up{animation:countUp .4s ease;}
+
+    /* ── OVERLAP BADGE ── */
+    .overlap-yes{background:#071200;border:1px solid #1a3a00;color:#7bc900;}
+    .overlap-no{background:#120700;border:1px solid #3a1a00;color:#c97700;}
+
+    /* ── TABLE ── */
+    .pct-row{display:grid;grid-template-columns:60px 1fr 80px 100px;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+    .pct-row:last-child{border-bottom:none;}
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════ TOP BAR ════ -->
+<div style="background:#080808;border-bottom:1px solid #1a1a1a;" class="px-6 py-2 hidden md:flex items-center justify-between">
+  <div class="flex items-center gap-4 text-xs" style="color:#444;font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;">
+    <span class="uppercase">CrossFit Open 2026</span>
+    <span>·</span>
+    <span>Thailand Field Analysis</span>
+  </div>
+  <div class="flex items-center gap-4">
+    <span class="chip">🇹🇭 Thailand Only</span>
+    <span class="chip" style="color:#B4E50D;border-color:#1e2e00;">● Live  ·  Workout 1 of 3</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ HEADER ════ -->
+<header style="background:#080808;border-bottom:1px solid #1c1c1c;position:sticky;top:0;z-index:50;">
+  <div class="max-w-screen-xl mx-auto px-4 md:px-6 flex items-center justify-between" style="height:52px;">
+
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <div>
+        <span class="f1 font-black text-white tracking-tight" style="font-size:1.25rem;letter-spacing:-.02em;">ลุยดิวะ</span>
+        <span class="f1 font-bold tracking-tight" style="font-size:.75rem;color:var(--muted);margin-left:10px;letter-spacing:.06em;text-transform:uppercase;">CrossFit Open Thailand</span>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="hidden md:flex items-center gap-0">
+      <a href="#analysis" class="d-tab active">Analysis</a>
+      <a href="#calculator" class="d-tab">Calculator</a>
+      <a href="#bands" class="d-tab">Score Bands</a>
+      <a href="#guidance" class="d-tab">Guidance</a>
+    </nav>
+
+    <div class="f1 font-bold text-xs tracking-widest hidden md:block" style="color:var(--muted2);text-transform:uppercase;">2026 SEASON</div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════ HERO ════ -->
+<section class="relative overflow-hidden hero-slash" style="background:linear-gradient(180deg,#0e0e0e 0%,#0c0c0c 100%);border-bottom:1px solid var(--border);">
+  <!-- Top lime bar -->
+  <div style="height:3px;background:var(--lime);width:100%;"></div>
+
+  <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-10 md:py-14">
+    <div class="flex flex-wrap items-start justify-between gap-6">
+
+      <!-- Left -->
+      <div>
+        <div class="section-label mb-3">CrossFit Open 2026 · Thailand Field · Workout 26.1</div>
+        <h1 class="f1 font-black text-white leading-none" style="font-size:clamp(2.4rem,6vw,4.2rem);letter-spacing:-.02em;">
+          <span class="gradient-lime lime-text-glow">ลุยดิวะ</span><br/>
+          <span style="font-size:clamp(1.2rem,3vw,2rem);color:#555;font-weight:700;">THAILAND FIELD INTELLIGENCE</span>
+        </h1>
+        <p class="mt-3 text-sm" style="color:var(--muted);max-width:420px;line-height:1.6;">
+          Thailand-only percentiles · Score bands · Performance interpretation · Athlete guidance.
+          Not just a leaderboard — a field intelligence system.
+        </p>
+        <!-- Workout badge -->
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <div style="background:var(--lime);color:#0c0c0c;padding:5px 16px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;">
+            AMRAP 15 MIN · REPS
+          </div>
+          <span class="chip">Data: Mar 5, 2026</span>
+          <span class="chip">N = 883 Thai Athletes</span>
+        </div>
+      </div>
+
+      <!-- Right: Big numbers -->
+      <div class="flex gap-3 flex-wrap">
+        <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid var(--lime);">
+          <div class="section-label mb-2">Total Athletes</div>
+          <div class="big-stat lime" style="font-size:2.6rem;" id="s-total">883</div>
+          <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">All divisions</div>
+        </div>
+        <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid #555;">
+          <div class="section-label mb-2">RX Men Median</div>
+          <div class="big-stat text-white" style="font-size:2.6rem;" id="s-median">255</div>
+          <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">Thailand P50</div>
+        </div>
+        <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid #f59e0b;">
+          <div class="section-label mb-2">#1 Thailand</div>
+          <div class="big-stat" style="font-size:2.6rem;color:#f59e0b;" id="s-top">347</div>
+          <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">RX Men</div>
+        </div>
+        <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid #555;">
+          <div class="section-label mb-2">Season</div>
+          <div class="big-stat text-white" style="font-size:2.6rem;">1/3</div>
+          <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">Workouts done</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ WORKOUT TABS ════ -->
+<div style="background:#0a0a0a;border-bottom:1px solid var(--border);position:sticky;top:52px;z-index:40;">
+  <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-3 flex items-center gap-2 flex-wrap">
+    <button onclick="selectWorkout('26.1')" id="tab-26.1" class="w-tab active">26.1</button>
+    <button class="w-tab soon">
+      26.2 <span style="font-size:.65rem;background:#1a1600;color:#7a6a00;border:1px solid #2a2200;padding:1px 7px;margin-left:4px;">WEEK 2</span>
+    </button>
+    <button class="w-tab soon">
+      26.3 <span style="font-size:.65rem;background:#1a1600;color:#7a6a00;border:1px solid #2a2200;padding:1px 7px;margin-left:4px;">WEEK 3</span>
+    </button>
+    <div class="vdivider mx-2" style="height:24px;"></div>
+    <!-- Division tabs inline -->
+    <button onclick="selectDivision('rx-men')" id="div-rx-men" class="d-tab active" style="padding:6px 14px;">RX Men</button>
+    <button onclick="selectDivision('rx-women')" id="div-rx-women" class="d-tab" style="padding:6px 14px;">RX Women</button>
+    <button onclick="selectDivision('scaled-men')" id="div-scaled-men" class="d-tab" style="padding:6px 14px;">Scaled Men</button>
+    <button onclick="selectDivision('scaled-women')" id="div-scaled-women" class="d-tab" style="padding:6px 14px;">Scaled Women</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ MAIN CONTENT ════ -->
+<div class="max-w-screen-xl mx-auto px-4 md:px-6 py-8" id="analysis">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+    <!-- ── LEFT COLUMN ── -->
+    <div class="lg:col-span-7 flex flex-col gap-5">
+
+      <!-- Distribution Chart -->
+      <div class="card" style="border-top:3px solid var(--lime);">
+        <div style="padding:20px 20px 0;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div class="section-label">Score Distribution</div>
+            <h2 class="f1 font-bold text-white mt-1" style="font-size:1.1rem;" id="chart-title">RX Men · Thailand · N=347</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <div style="width:10px;height:10px;background:var(--lime);"></div>
+            <span style="font-size:.72rem;color:var(--muted);">Athletes per score range</span>
+          </div>
+        </div>
+        <div style="padding:16px 20px 20px;height:230px;position:relative;">
+          <canvas id="distChart"></canvas>
+        </div>
+        <!-- Cluster badges -->
+        <div style="padding:0 20px 16px;display:flex;flex-wrap:wrap;gap:8px;" id="cluster-callouts"></div>
+      </div>
+
+      <!-- Percentile Table -->
+      <div class="card">
+        <div style="padding:20px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div class="section-label">Percentile Thresholds</div>
+            <h2 class="f1 font-bold text-white mt-1" style="font-size:1.1rem;" id="pct-div-label">RX Men · Thailand</h2>
+          </div>
+          <span class="chip" id="pct-n-chip">N = 347</span>
+        </div>
+
+        <!-- P-grid -->
+        <div style="padding:16px 20px;" id="pct-grid">
+          <!-- filled by JS -->
+        </div>
+
+        <!-- Extra stats row -->
+        <div style="padding:0 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;" id="extra-stats"></div>
+      </div>
+
+      <!-- Tiebreak Zone -->
+      <div class="card" style="border-left:3px solid #f59e0b;padding:20px;">
+        <div class="flex items-start gap-3">
+          <div style="color:#f59e0b;font-size:1.2rem;flex-shrink:0;">⚡</div>
+          <div>
+            <div class="section-label" style="color:#7a6000;">Tiebreak Alert</div>
+            <h3 class="f1 font-bold mt-1" style="font-size:1rem;color:#f59e0b;" id="tb-headline">238–242 reps — Dense Zone</h3>
+            <p style="font-size:.82rem;color:var(--muted);margin-top:6px;line-height:1.6;" id="tb-body">
+              41 athletes share this score range, compressed into 28 rank positions.
+              In this zone, <strong style="color:#f0f0f0;">1 rep ≈ 3.2 rank positions</strong> in Thailand.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── RIGHT COLUMN ── -->
+    <div class="lg:col-span-5 flex flex-col gap-5" id="calculator">
+
+      <!-- Percentile Calculator -->
+      <div class="card" style="border-top:3px solid var(--lime);">
+        <div style="padding:20px 20px 16px;border-bottom:1px solid var(--border);">
+          <div class="section-label">Percentile Calculator</div>
+          <h2 class="f1 font-bold text-white mt-1" style="font-size:1.1rem;">Where Do You Stand?</h2>
+          <p style="font-size:.75rem;color:var(--muted);margin-top:4px;">อยู่ตรงไหนในไทย — รู้ได้ทันที</p>
+        </div>
+        <div style="padding:20px;">
+          <input type="number" id="score-input" class="score-input" placeholder="—" min="1" max="600" oninput="calcPercentile()" />
+          <div style="font-size:.7rem;color:var(--muted2);text-align:center;margin-top:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;">
+            Enter your score in reps
+          </div>
+
+          <!-- Result -->
+          <div id="calc-result" style="display:none;margin-top:20px;" class="fade-up">
+
+            <!-- Percentile row -->
+            <div style="display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0;background:var(--bg3);border:1px solid var(--border2);margin-bottom:14px;">
+              <div style="padding:16px 12px;text-align:center;">
+                <div class="section-label mb-2">TH Percentile</div>
+                <div class="big-stat gradient-lime" style="font-size:2.8rem;" id="result-pct">—</div>
+              </div>
+              <div style="background:var(--border);"></div>
+              <div style="padding:16px 12px;text-align:center;">
+                <div class="section-label mb-2">TH Rank ~</div>
+                <div class="big-stat lime" style="font-size:2.8rem;" id="result-rank">—</div>
+              </div>
+              <div style="background:var(--border);"></div>
+              <div style="padding:16px 12px;text-align:center;">
+                <div class="section-label mb-2">Tier</div>
+                <div class="f1 font-black" style="font-size:1.15rem;margin-top:6px;" id="result-tier">—</div>
+              </div>
+            </div>
+
+            <!-- Progress bar -->
+            <div style="margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted2);margin-bottom:5px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;">
+                <span>0th</span><span id="div-label-bar">Thailand RX Men</span><span>100th</span>
+              </div>
+              <div class="pbar"><div class="pbar-fill" id="result-bar" style="width:0%;"></div></div>
+            </div>
+
+            <!-- Context -->
+            <div style="font-size:.8rem;color:var(--muted);line-height:1.7;" id="result-context"></div>
+
+            <!-- Score insight block -->
+            <div style="margin-top:12px;border-left:3px solid var(--lime);padding:12px 14px;background:var(--lime-dark);" id="result-insight"></div>
+          </div>
+
+          <!-- Placeholder -->
+          <div id="calc-placeholder" style="padding:36px 0;text-align:center;">
+            <div style="font-size:2rem;margin-bottom:10px;opacity:.3;">⚡</div>
+            <p style="font-size:.8rem;color:var(--muted2);font-family:'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;line-height:1.8;">
+              Type your score<br/>to see your Thailand percentile
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RX / Scaled Overlap -->
+      <div class="card" style="padding:20px;">
+        <div class="section-label mb-3">RX ↔ Scaled Overlap Analysis</div>
+        <div id="overlap-content"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ SCORE BANDS ════ -->
+<div style="border-top:1px solid var(--border);background:#0a0a0a;" id="bands">
+  <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-10">
+
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+      <div>
+        <div class="section-label mb-2">Performance Tiers</div>
+        <h2 class="f1 font-black text-white" style="font-size:1.9rem;letter-spacing:-.01em;">SCORE BAND EXPLORER</h2>
+      </div>
+      <span class="chip" id="band-div-label">RX Men · Thailand</span>
+    </div>
+
+    <!-- 5 band cards -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;" id="band-cards" class="mb-4"></div>
+
+    <!-- Band detail panel -->
+    <div class="card fade-up" id="band-detail" style="display:none;margin-top:4px;border-top:3px solid var(--lime);padding:24px 28px;"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ WHO ARE YOU ════ -->
+<div style="border-top:1px solid var(--border);" id="guidance">
+  <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-10">
+
+    <div style="margin-bottom:20px;">
+      <div class="section-label mb-2">Athlete Guidance Engine</div>
+      <h2 class="f1 font-black text-white" style="font-size:1.9rem;letter-spacing:-.01em;">WHO ARE YOU?</h2>
+      <p style="font-size:.82rem;color:var(--muted);margin-top:6px;">เลือกประเภทนักกีฬาของคุณ → รับคำแนะนำที่ออกแบบมาเฉพาะ</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px;" id="type-cards" class="mb-4"></div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px;" id="type-cards-2" class="mb-4"></div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px;" id="type-cards-3" class="mb-4"></div>
+
+    <!-- Guidance detail -->
+    <div class="card fade-up" id="guidance-detail" style="display:none;margin-top:4px;border-top:3px solid var(--lime);padding:28px;"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ COMING SOON ════ -->
+<div style="border-top:1px solid var(--border);background:#0a0a0a;">
+  <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-10">
+    <div class="section-label mb-5">Next Workouts</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+      <div class="card stripe-bg" style="padding:24px;border-top:3px solid #222;opacity:.6;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+          <div style="width:36px;height:36px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;color:#444;font-size:1.1rem;flex-shrink:0;">2</div>
+          <div>
+            <div class="f1 font-bold text-white" style="font-size:1.2rem;">WORKOUT 26.2</div>
+            <div style="font-size:.72rem;color:#7a6a00;font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;">Announced Week 2</div>
+          </div>
+        </div>
+        <p style="font-size:.78rem;color:var(--muted2);line-height:1.6;">การวิเคราะห์ 26.2 สำหรับนักกีฬาไทยจะอัปเดตทันทีหลัง CrossFit ประกาศ workout</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;">
+          <span class="chip">Distribution</span><span class="chip">Percentile Calculator</span><span class="chip">Score Bands</span>
+        </div>
+      </div>
+      <div class="card stripe-bg" style="padding:24px;border-top:3px solid #222;opacity:.6;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+          <div style="width:36px;height:36px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;color:#444;font-size:1.1rem;flex-shrink:0;">3</div>
+          <div>
+            <div class="f1 font-bold text-white" style="font-size:1.2rem;">WORKOUT 26.3</div>
+            <div style="font-size:.72rem;color:#7a6a00;font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;">Announced Week 3</div>
+          </div>
+        </div>
+        <p style="font-size:.78rem;color:var(--muted2);line-height:1.6;">หลังครบ 3 workouts: Overall Archetype · Athlete Profile · Full Open Report</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;">
+          <span class="chip">Overall Archetype</span><span class="chip">Full Open Report</span><span class="chip">Field Report 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ FOOTER ════ -->
+<footer style="background:#080808;border-top:1px solid var(--border);">
+  <div style="height:3px;background:var(--lime);"></div>
+  <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-6 flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <div class="f1 font-black text-white" style="font-size:1rem;letter-spacing:-.01em;">
+        ลุยดิวะ <span style="color:var(--lime);font-size:.8rem;font-weight:600;margin-left:6px;">CrossFit Open Thailand</span>
+      </div>
+      <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">
+        Data: CrossFit.com · Thailand athletes only · Updated after each judging window
+      </div>
+    </div>
+    <div style="font-size:.7rem;color:var(--muted2);max-width:380px;text-align:right;">
+      ⚠ All score interpretations are probabilistic and based on score band patterns, not individual-level analysis.
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════ JAVASCRIPT ════ -->
+<script>
+/* ─── DATA ─────────────────────────────────────────────────────── */
+const DATA = {
+  '26.1': {
+    'rx-men': {
+      n:347, label:'RX Men', unit:'reps',
+      dist:{ labels:['120–139','140–159','160–179','180–199','200–219','220–239','240–259','260–279','280–299','300–319','320–339','340+'], counts:[4,8,14,22,36,50,60,54,44,30,17,8] },
+      pcts:{ P10:162, P25:210, P50:255, P75:290, P90:320, P95:335 },
+      clusters:[{ score:240, size:32, note:'Round 4 completion boundary' },{ score:300, size:22, note:'Round 5 completion boundary' }],
+      tb:{ range:'238–242', athletes:41, ranks:28, sens:3.2 },
+      overlap:{ exists:true, count:23, range:'185–198', msg:'23 Scaled Men score above the RX bottom threshold' },
+      bands:{
+        Elite:       { range:'320+ reps', pct:'Top 5%',   note:'Elite engine + near-unbroken gymnastics. Competing at a level comparable to regional CrossFit athletes globally.' },
+        Competitive: { range:'290–319',   pct:'Top 25%',  note:'Strong engine with solid gymnastics efficiency. Minor breaks on gymnastics likely; pacing discipline is above average for the Thai field.' },
+        Solid:       { range:'255–289',   pct:'Top 50%',  note:'Good aerobic capacity. Likely 2–3 breaks per gymnastics set. Engine is there but skill efficiency has meaningful room to develop.' },
+        Developing:  { range:'210–254',   pct:'Top 75%',  note:'Developing engine or skill. Gymnastics cycling or sustained pacing is a limiter. Clear improvement potential with focused work.' },
+        Beginner:    { range:'< 210 reps',pct:'Bottom 25%',note:'Capacity or skill building phase. Every rep matters. Consistent training will yield fast gains at this stage.' }
+      }
+    },
+    'rx-women': {
+      n:182, label:'RX Women', unit:'reps',
+      dist:{ labels:['80–99','100–119','120–139','140–159','160–179','180–199','200–219','220–239','240–259','260+'], counts:[3,6,12,18,28,35,34,24,14,8] },
+      pcts:{ P10:108, P25:148, P50:188, P75:222, P90:252, P95:268 },
+      clusters:[{ score:180, size:22, note:'Round 3 completion boundary' },{ score:240, size:14, note:'Round 4 completion boundary' }],
+      tb:{ range:'178–182', athletes:26, ranks:19, sens:2.8 },
+      overlap:{ exists:true, count:15, range:'140–155', msg:'15 Scaled Women score above the RX bottom threshold' },
+      bands:{
+        Elite:       { range:'252+ reps', pct:'Top 10%',  note:'Elite engine + efficient gymnastics. Top-tier Thai female CrossFit athlete.' },
+        Competitive: { range:'222–251',   pct:'Top 25%',  note:'Strong engine, solid gymnastics. Minor breaks expected; good pacing relative to Thai field.' },
+        Solid:       { range:'188–221',   pct:'Top 50%',  note:'Good capacity. Gymnastics cycling likely 2–3 breaks per set. Clear upside with skill development.' },
+        Developing:  { range:'148–187',   pct:'Top 75%',  note:'Developing capacity. Consistent training focus on engine + gymnastics will yield fast gains.' },
+        Beginner:    { range:'< 148 reps',pct:'Bottom 25%',note:'Building phase. Every workout is genuine development.' }
+      }
+    },
+    'scaled-men': {
+      n:198, label:'Scaled Men', unit:'reps',
+      dist:{ labels:['100–119','120–139','140–159','160–179','180–199','200–219','220–239','240–259','260–279','280+'], counts:[4,9,16,24,34,40,35,24,9,3] },
+      pcts:{ P10:138, P25:175, P50:212, P75:248, P90:278, P95:290 },
+      clusters:[{ score:200, size:28, note:'Round 3 completion boundary' },{ score:240, size:18, note:'Round 4 completion boundary' }],
+      tb:{ range:'198–202', athletes:32, ranks:22, sens:3.8 },
+      overlap:null,
+      bands:{
+        Elite:       { range:'278+ reps', pct:'Top 10%',  note:'Top Scaled field — engine and movement quality both strong. RX readiness should be evaluated against overlap analysis.' },
+        Competitive: { range:'248–277',   pct:'Top 25%',  note:'Strong Scaled performance. If scoring above 248, overlap with RX bottom quartile is possible — worth evaluating.' },
+        Solid:       { range:'212–247',   pct:'Top 50%',  note:'Solid Scaled athlete. Good base to build toward RX movement standards.' },
+        Developing:  { range:'175–211',   pct:'Top 75%',  note:'Engine building phase with simultaneous movement learning. Consistent attendance compounds fast here.' },
+        Beginner:    { range:'< 175 reps',pct:'Bottom 25%',note:'Building phase. Quality over speed — every movement done correctly matters.' }
+      }
+    },
+    'scaled-women': {
+      n:156, label:'Scaled Women', unit:'reps',
+      dist:{ labels:['80–99','100–119','120–139','140–159','160–179','180–199','200–219','220+'], counts:[4,8,14,22,32,36,24,16] },
+      pcts:{ P10:105, P25:138, P50:175, P75:208, P90:235, P95:248 },
+      clusters:[{ score:160, size:18, note:'Round 3 completion boundary' }],
+      tb:{ range:'158–162', athletes:22, ranks:16, sens:3.1 },
+      overlap:null,
+      bands:{
+        Elite:       { range:'235+ reps', pct:'Top 10%',  note:'Top Scaled Women field. Strong engine, good movement quality.' },
+        Competitive: { range:'208–234',   pct:'Top 25%',  note:'Solid Scaled athlete. Engine and movement working together well.' },
+        Solid:       { range:'175–207',   pct:'Top 50%',  note:'Good development base. Consistent training will compound quickly here.' },
+        Developing:  { range:'138–174',   pct:'Top 75%',  note:'Building stage. Each week of training has significant ROI at this level.' },
+        Beginner:    { range:'< 138 reps',pct:'Bottom 25%',note:'Every rep is real progress. Focus on quality and showing up.' }
+      }
+    }
+  }
+};
+
+const GUIDANCE = [
+  { id:'competitive', icon:'🏆', label:'COMPETITIVE RX', sub:'Top 5–25% Thailand', col:'#f59e0b',
+    strengths:'Engine verified and consistent. Movement efficiency solid across workout types.',
+    focus:'Tiebreak optimization — in dense score zones, 1 rep = multiple rank positions. Tiebreak time from rep 1.',
+    strategy:'Study the score cluster map. Know which split target equals your percentile goal. Race the plan, not the field.',
+    training:'Gymnastics cycling under fatigue — sets of 5–7 at end of conditioning pieces, not fresh. Barbell cycling at 70–80% max for tempo, not load.',
+    expectation:'P90+ requires near-unbroken gymnastics under fatigue. That is a specific skill outcome, not a general fitness outcome.' },
+  { id:'borderline', icon:'⚡', label:'BORDERLINE RX', sub:'P25–P50 Thailand RX', col:'#B4E50D',
+    strengths:'Engine is functional for RX volume. Gritty competitor mindset. Enough to finish all rounds.',
+    focus:'Identify which 1–2 movements are costing you the most reps per workout. Train those specifically.',
+    strategy:'Conservative early is profitable. Do NOT pace with P75+ athletes in rounds 1–2. You run a different race.',
+    training:'Gymnastics cycling efficiency under fatigue + barbell cycling at competitive tempo (70–80% max, not casual singles).',
+    expectation:'P50 Thailand RX is achievable in 1–2 Open seasons with targeted, specific training — not just attending more classes.' },
+  { id:'scaled', icon:'📈', label:'STRONG SCALED', sub:'Top 10% Scaled', col:'#3b82f6',
+    strengths:'Your engine may already exceed the bottom of the RX field. Fitness is likely sufficient.',
+    focus:'The question is not fitness — it\'s movement standard. Check the RX/Scaled overlap for your score.',
+    strategy:'If overlap analysis shows you score above RX bottom quartile → register RX next Open. Give yourself 6 months to train RX standards.',
+    training:'RX movement standards: pull-ups, toes-to-bar, HSPU, barbell cycling. Not more conditioning — the fitness is likely already there.',
+    expectation:'Top 40% of RX in the following Open season is realistic with focused movement standards work over 6 months.' },
+  { id:'recreational', icon:'🏅', label:'RECREATIONAL', sub:'Participation focus', col:'#6366f1',
+    strengths:'Community mindset. Consistent attendance. Here for the right reason.',
+    focus:'Completion over score. Community over competition.',
+    strategy:'Go 20% slower than you think is right in round 1. Open workouts punish ego pacing more than any other format.',
+    training:'Movement quality, consistent class attendance, one skill goal per training quarter.',
+    expectation:'Choose Scaled without hesitation if any RX movement is unsafe. A Scaled score is real data. A bad RX score from the wrong division tells you nothing.' },
+  { id:'first-timer', icon:'🎯', label:'FIRST-TIMER', sub:'First Open experience', col:'#10b981',
+    strengths:'Curiosity and openness. No bad habits to unlearn. High adaptation potential.',
+    focus:'Learn the process first: judging standards, score submission, video requirements, division selection.',
+    strategy:'When uncertain about division → choose Scaled. You can always move up next year.',
+    training:'Nothing dramatic before your first Open. Do not attempt movements you have never trained just because it is happening.',
+    expectation:'Your first Open score is baseline data, not a verdict. Use it to identify 2–3 training targets for the next 6 months.' },
+  { id:'crossover', icon:'🔄', label:'CROSSOVER ATHLETE', sub:'Runner / HYROX / Gym', col:'#f97316',
+    strengths:'You have transferable fitness. The type depends on your background — engine (runner/HYROX) or strength (gym).',
+    focus:'Identify your specific CrossFit skill gaps. They differ significantly by background.',
+    strategy:'Runner: build upper body pulling first. HYROX: barbell technique first. Gym: build aerobic base first.',
+    training:'8-week targeted plan based on your background. Engine athletes: gymnastics. Strength athletes: aerobic base + barbell cycling.',
+    expectation:'Scaled is the right division for your first Open. With 12 months of CrossFit-specific training, RX is a realistic second Open goal.' }
+];
+
+const BANDS_META = [
+  { id:'Elite',       col:'#f59e0b', topBorder:'3px solid #f59e0b' },
+  { id:'Competitive', col:'#B4E50D', topBorder:'3px solid #B4E50D' },
+  { id:'Solid',       col:'#3b82f6', topBorder:'3px solid #3b82f6' },
+  { id:'Developing',  col:'#6366f1', topBorder:'3px solid #6366f1' },
+  { id:'Beginner',    col:'#555',    topBorder:'3px solid #333' }
+];
+
+/* ─── STATE ────────────────────────────────────────────────────── */
+let wk = '26.1', div = 'rx-men', chart = null;
+
+/* ─── INIT ─────────────────────────────────────────────────────── */
+function init(){ render(); }
+
+function selectWorkout(w){ wk=w; render(); }
+
+function selectDivision(d){
+  div=d;
+  ['rx-men','rx-women','scaled-men','scaled-women'].forEach(x=>{
+    const el=document.getElementById('div-'+x);
+    if(el){ el.className = x===d ? 'd-tab active' : 'd-tab'; el.style.padding='6px 14px'; }
+  });
+  document.getElementById('band-detail').style.display='none';
+  document.getElementById('guidance-detail').style.display='none';
+  render();
+  calcPercentile();
+}
+
+function render(){
+  const d = DATA[wk][div];
+  document.getElementById('chart-title').textContent = `${d.label} · Thailand · N=${d.n}`;
+  document.getElementById('pct-div-label').textContent = `${d.label} · Thailand`;
+  document.getElementById('pct-n-chip').textContent = `N = ${d.n}`;
+  document.getElementById('band-div-label').textContent = `${d.label} · Thailand`;
+  renderChart(d);
+  renderClusters(d);
+  renderPctGrid(d);
+  renderExtraStats(d);
+  renderTiebreak(d);
+  renderOverlap(d);
+  renderBands(d);
+  renderGuidanceCards();
+}
+
+/* ─── CHART ────────────────────────────────────────────────────── */
+function renderChart(d){
+  const ctx = document.getElementById('distChart').getContext('2d');
+  if(chart) chart.destroy();
+  chart = new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels: d.dist.labels,
+      datasets:[{
+        data: d.dist.counts,
+        backgroundColor: d.dist.counts.map((_,i)=>{
+          const t=i/(d.dist.counts.length-1);
+          const r=Math.round(180-180*t+180*t);
+          const g=Math.round(229-229*t+100*t);
+          const b=Math.round(13);
+          return `rgba(${Math.round(180*(1-t*.4))},${Math.round(229*(1-t*.3))},13,${0.4+t*0.55})`;
+        }),
+        borderColor:'transparent', borderRadius:2, borderSkipped:false
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'#101010', borderColor:'#222', borderWidth:1,
+          titleColor:'#B4E50D', bodyColor:'#888',
+          titleFont:{family:'Barlow Condensed',weight:'700',size:13},
+          callbacks:{
+            label: c=>`  ${c.raw} athletes`,
+            title: t=>`${t[0].label} reps`
+          }
+        }
+      },
+      scales:{
+        x:{ grid:{color:'#161616'}, ticks:{color:'#444',font:{size:10,family:'Barlow Condensed'}} },
+        y:{ grid:{color:'#161616'}, ticks:{color:'#444',font:{size:10,family:'Barlow Condensed'}},
+            title:{display:true,text:'Athletes',color:'#333',font:{size:10}} }
+      }
+    }
+  });
+}
+
+/* ─── CLUSTERS ─────────────────────────────────────────────────── */
+function renderClusters(d){
+  document.getElementById('cluster-callouts').innerHTML = d.clusters.map(c=>`
+    <div style="display:inline-flex;align-items:center;gap:6px;background:#120d00;border:1px solid #2a1c00;padding:4px 12px;font-size:.72rem;">
+      <span style="color:#f97316;font-size:.7rem;">▲</span>
+      <span style="color:#c97000;font-family:'Barlow Condensed',sans-serif;font-weight:700;">${c.score} REPS CLUSTER</span>
+      <span style="color:#444;">${c.size} athletes · ${c.note}</span>
+    </div>`).join('');
+}
+
+/* ─── PCT GRID ─────────────────────────────────────────────────── */
+function renderPctGrid(d){
+  const rows=[
+    { label:'P10', val:d.pcts.P10, col:'#444',    bar:10,  sub:'Bottom 10%' },
+    { label:'P25', val:d.pcts.P25, col:'#6366f1', bar:25,  sub:'Bottom 25%' },
+    { label:'P50', val:d.pcts.P50, col:'#3b82f6', bar:50,  sub:'Median' },
+    { label:'P75', val:d.pcts.P75, col:'#f97316', bar:75,  sub:'Top 25%' },
+    { label:'P90', val:d.pcts.P90, col:'#B4E50D', bar:90,  sub:'Top 10%' },
+    { label:'P95', val:d.pcts.P95, col:'#f59e0b', bar:95,  sub:'Top 5%' },
+  ];
+  document.getElementById('pct-grid').innerHTML = rows.map(r=>`
+    <div class="pct-row">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;color:${r.col};">${r.label}</div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:.65rem;color:#333;margin-bottom:4px;">
+          <span></span><span style="color:#444;">${r.sub}</span>
+        </div>
+        <div class="pbar" style="height:4px;">
+          <div style="height:100%;width:${r.bar}%;background:${r.col};border-radius:2px;"></div>
+        </div>
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:#f0f0f0;text-align:right;">${r.val}</div>
+      <div style="font-size:.7rem;color:#333;text-align:right;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em;">reps</div>
+    </div>`).join('');
+}
+
+/* ─── EXTRA STATS ───────────────────────────────────────────────── */
+function renderExtraStats(d){
+  document.getElementById('extra-stats').innerHTML = `
+    <div style="background:#0a0a0a;border:1px solid var(--border2);padding:14px 16px;display:flex;align-items:center;gap:10px;">
+      <span style="color:var(--lime);font-size:1rem;">⚡</span>
+      <div>
+        <div class="section-label" style="margin-bottom:2px;">Sensitivity at P50</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;color:#f0f0f0;">1 rep ≈ ${d.tb.sens} rank positions</div>
+      </div>
+    </div>
+    <div style="background:#0a0a0a;border:1px solid var(--border2);padding:14px 16px;display:flex;align-items:center;gap:10px;">
+      <span style="color:#3b82f6;font-size:1rem;">👥</span>
+      <div>
+        <div class="section-label" style="margin-bottom:2px;">Field Reliability</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;color:#f0f0f0;">N=${d.n} — Percentiles reliable</div>
+      </div>
+    </div>`;
+}
+
+/* ─── TIEBREAK ──────────────────────────────────────────────────── */
+function renderTiebreak(d){
+  const tb=d.tb;
+  document.getElementById('tb-headline').textContent = `${tb.range} reps — Dense Zone`;
+  document.getElementById('tb-body').innerHTML = `
+    <strong style="color:#f0f0f0;">${tb.athletes} athletes</strong> share this score range, compressed into
+    <strong style="color:#f0f0f0;">${tb.ranks} rank positions</strong>.
+    In this zone, <strong style="color:var(--lime);">1 rep ≈ ${tb.sens} rank positions</strong> in Thailand.`;
+}
+
+/* ─── OVERLAP ───────────────────────────────────────────────────── */
+function renderOverlap(d){
+  const el=document.getElementById('overlap-content');
+  if(!d.overlap){
+    el.innerHTML=`<div class="overlap-no" style="padding:12px 14px;font-size:.8rem;">No significant RX/Scaled overlap detected in this division.</div>`; return;
+  }
+  el.innerHTML=`
+    <div class="overlap-yes" style="padding:6px 12px;display:inline-flex;align-items:center;gap:6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;">
+      ● Overlap Detected
+    </div>
+    <p style="font-size:.8rem;color:var(--muted);line-height:1.7;">
+      Top Scaled ${d.label.split(' ')[1]} scores (<strong style="color:#f0f0f0;">${d.overlap.range} reps</strong>) overlap with the
+      bottom of the RX ${d.label.split(' ')[1]} field.
+      <strong style="color:#f0f0f0;">${d.overlap.count} Scaled athletes</strong> would rank in the bottom 20% of RX.
+    </p>
+    <div style="margin-top:12px;background:#071200;border:1px solid #1a3a00;padding:12px 14px;font-size:.78rem;color:#7bc900;line-height:1.6;">
+      <strong>If you're Scaled and scoring ${d.overlap.range}+</strong> — you may be ready to move to RX next Open.
+      Check the Division Readiness section for a complete assessment.
+    </div>`;
+}
+
+/* ─── BAND CARDS ────────────────────────────────────────────────── */
+function renderBands(d){
+  document.getElementById('band-cards').innerHTML = BANDS_META.map(b=>`
+    <div class="band-card" id="band-${b.id}" onclick="selectBand('${b.id}')" style="border-top:${b.topBorder};">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:${b.col};margin-bottom:6px;">${b.id}</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.35rem;color:#f0f0f0;line-height:1.1;">${d.bands[b.id].range}</div>
+      <div style="font-size:.68rem;color:var(--muted);margin-top:4px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.06em;">${d.bands[b.id].pct}</div>
+    </div>`).join('');
+}
+
+function selectBand(id){
+  const d = DATA[wk][div];
+  const b = BANDS_META.find(x=>x.id===id);
+  BANDS_META.forEach(x=>{ const el=document.getElementById('band-'+x.id); if(el) el.style.background=x.id===id?'#1a1a1a':'var(--bg3)'; });
+  const det=document.getElementById('band-detail');
+  det.style.display='block';
+  det.style.borderTopColor=b.col;
+  det.innerHTML=`
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+      <div>
+        <div class="section-label" style="color:${b.col};">${id} Tier</div>
+        <h3 class="f1 font-black text-white" style="font-size:1.7rem;letter-spacing:-.01em;">${d.bands[id].range} <span style="font-size:1rem;color:var(--muted);font-weight:600;">reps</span></h3>
+        <div style="font-size:.8rem;color:${b.col};margin-top:2px;">${d.bands[id].pct} · ${d.label} Thailand</div>
+      </div>
+      <button onclick="document.getElementById('band-detail').style.display='none'" style="color:var(--muted2);font-size:1.2rem;background:transparent;border:none;cursor:pointer;padding:4px;">✕</button>
+    </div>
+    <div style="font-size:.88rem;color:#bbb;line-height:1.75;background:#0a0a0a;border:1px solid var(--border2);padding:16px 18px;">${d.bands[id].note}</div>`;
+}
+
+/* ─── GUIDANCE CARDS ────────────────────────────────────────────── */
+function renderGuidanceCards(){
+  const rows = [GUIDANCE.slice(0,2), GUIDANCE.slice(2,4), GUIDANCE.slice(4,6)];
+  const ids = ['type-cards','type-cards-2','type-cards-3'];
+  rows.forEach((row,i)=>{
+    document.getElementById(ids[i]).innerHTML = row.map(g=>`
+      <div class="type-card" id="type-${g.id}" onclick="selectType('${g.id}')">
+        <div style="font-size:1.5rem;margin-bottom:8px;">${g.icon}</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.88rem;letter-spacing:.08em;color:#f0f0f0;">${g.label}</div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:4px;">${g.sub}</div>
+      </div>`).join('');
+  });
+}
+
+function selectType(id){
+  const g = GUIDANCE.find(x=>x.id===id);
+  GUIDANCE.forEach(x=>{ const el=document.getElementById('type-'+x.id); if(el){ el.style.borderColor=x.id===id?g.col:'var(--border)'; el.style.background=x.id===id?'var(--bg4)':'var(--bg3)'; }});
+  const det=document.getElementById('guidance-detail');
+  det.style.display='block';
+  det.style.borderTopColor=g.col;
+  det.innerHTML=`
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:2rem;">${g.icon}</span>
+        <div>
+          <div class="section-label" style="color:${g.col};">${g.label}</div>
+          <h3 class="f1 font-black text-white" style="font-size:1.6rem;letter-spacing:-.01em;">Athlete Guidance</h3>
+          <div style="font-size:.8rem;color:${g.col};margin-top:2px;">${g.sub}</div>
+        </div>
+      </div>
+      <button onclick="document.getElementById('guidance-detail').style.display='none'" style="color:var(--muted2);font-size:1.2rem;background:transparent;border:none;cursor:pointer;padding:4px;">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:3px;margin-bottom:3px;">
+      ${[
+        { label:'STRENGTHS',              text:g.strengths, icon:'💪', col:'#1a4010', bc:'#2a6018' },
+        { label:'PRIMARY FOCUS',          text:g.focus,     icon:'🎯', col:'#120820', bc:'#2a1840' },
+        { label:'COMPETITION STRATEGY',   text:g.strategy,  icon:'📊', col:'#080c1a', bc:'#16203a' },
+        { label:'TRAINING PRIORITY',      text:g.training,  icon:'🏋️', col:'#1a1000', bc:'#3a2800' }
+      ].map(item=>`
+        <div style="background:${item.col};border:1px solid ${item.bc};padding:18px 20px;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+            <span>${item.icon}</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:${g.col};">${item.label}</span>
+          </div>
+          <p style="font-size:.83rem;color:#b0b0b0;line-height:1.7;">${item.text}</p>
+        </div>`).join('')}
+    </div>
+    <div style="background:#0a0a0a;border:1px solid var(--border2);padding:16px 18px;display:flex;align-items:flex-start;gap:10px;">
+      <span style="color:var(--lime);flex-shrink:0;">📌</span>
+      <div style="font-size:.82rem;color:#888;line-height:1.7;"><strong style="color:#bbb;">Expectation:</strong> ${g.expectation}</div>
+    </div>`;
+}
+
+/* ─── CALCULATOR ────────────────────────────────────────────────── */
+function getPct(score, d){
+  const p=d.pcts;
+  if(score>=p.P95) return Math.min(99, Math.round(95+(score-p.P95)/(p.P95-p.P90)*4));
+  if(score>=p.P90) return Math.round(90+(score-p.P90)/(p.P95-p.P90)*5);
+  if(score>=p.P75) return Math.round(75+(score-p.P75)/(p.P90-p.P75)*15);
+  if(score>=p.P50) return Math.round(50+(score-p.P50)/(p.P75-p.P50)*25);
+  if(score>=p.P25) return Math.round(25+(score-p.P25)/(p.P50-p.P25)*25);
+  if(score>=p.P10) return Math.round(10+(score-p.P10)/(p.P25-p.P10)*15);
+  return Math.max(1, Math.round(score/p.P10*10));
+}
+
+function getTier(pct){
+  if(pct>=95) return { label:'ELITE',       col:'#f59e0b', bg:'#0f0b00', bc:'#3a2c00' };
+  if(pct>=75) return { label:'COMPETITIVE', col:'#B4E50D', bg:'var(--lime-dark)', bc:'#283000' };
+  if(pct>=50) return { label:'SOLID',       col:'#3b82f6', bg:'#080e1c', bc:'#162040' };
+  if(pct>=25) return { label:'DEVELOPING',  col:'#6366f1', bg:'#0a0814', bc:'#1c1a40' };
+  return               { label:'BEGINNER',  col:'#666',    bg:'#0a0a0a', bc:'#222' };
+}
+
+function calcPercentile(){
+  const score = parseInt(document.getElementById('score-input').value);
+  const d = DATA[wk][div];
+  const res = document.getElementById('calc-result');
+  const ph  = document.getElementById('calc-placeholder');
+  if(!score||score<1){ res.style.display='none'; ph.style.display='block'; return; }
+  res.style.display='block'; ph.style.display='none';
+  const pct  = getPct(score, d);
+  const tier = getTier(pct);
+  const estRank = Math.max(1, Math.round((1-pct/100)*d.n));
+  const diff = score - d.pcts.P50;
+  document.getElementById('result-pct').textContent  = pct+'th';
+  document.getElementById('result-rank').textContent  = '#'+estRank;
+  document.getElementById('result-bar').style.width   = pct+'%';
+  document.getElementById('div-label-bar').textContent = `${d.label} Thailand`;
+  document.getElementById('result-tier').innerHTML = `<span style="color:${tier.col};font-size:1.4rem;">${tier.label}</span>`;
+  document.getElementById('result-context').innerHTML = `
+    <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;">
+      <span style="color:#3b82f6;flex-shrink:0;margin-top:2px;">◉</span>
+      <span>Thailand ${d.label} median is <strong style="color:#f0f0f0;">${d.pcts.P50} reps</strong>. Your score of <strong style="color:#f0f0f0;">${score}</strong> is
+      <strong style="${diff>=0?'color:#B4E50D':'color:#f87171'};">${diff>=0?'+'+diff+' above':Math.abs(diff)+' below'} median</strong>.</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:8px;">
+      <span style="color:var(--lime);flex-shrink:0;margin-top:2px;">⚡</span>
+      <span>In this score zone, <strong style="color:#f0f0f0;">1 rep ≈ ${d.tb.sens} rank positions</strong> in Thailand.</span>
+    </div>`;
+  const bandId = pct>=95?'Elite':pct>=75?'Competitive':pct>=50?'Solid':pct>=25?'Developing':'Beginner';
+  const note = d.bands[bandId]?.note || '';
+  document.getElementById('result-insight').innerHTML = `
+    <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-bottom:6px;">${tier.label} · ${d.bands[bandId]?.pct||''}</div>
+    <div style="font-size:.82rem;color:#a0a0a0;line-height:1.7;">${note}</div>`;
+}
+
+/* ─── START ─────────────────────────────────────────────────────── */
+init();
+</script>
+</body>
+</html>
