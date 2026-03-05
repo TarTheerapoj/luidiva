@@ -11,9 +11,9 @@
   <style>
     :root {
       --lime:#B4E50D; --lime-glow:rgba(180,229,13,.18); --lime-dark:#0f1800;
-      --bg:#0c0c0c; --bg2:#101010; --bg3:#141414; --bg4:#181818;
-      --border:#1c1c1c; --border2:#242424; --border3:#2e2e2e;
-      --text:#f2f2f2; --muted:#777; --muted2:#444;
+      --bg:#0e0e0e; --bg2:#131313; --bg3:#181818; --bg4:#1e1e1e;
+      --border:#252525; --border2:#2e2e2e; --border3:#383838;
+      --text:#f0f0f0; --muted:#a0a0a0; --muted2:#686868;
     }
     *{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
@@ -56,8 +56,8 @@
     .w-tab.active{background:var(--lime);border-color:var(--lime);color:#0c0c0c;}
     .w-tab.soon{background:transparent;border:1px dashed #222;color:#333;cursor:default;pointer-events:none;}
 
-    .d-tab{background:transparent;border-bottom:2px solid transparent;color:var(--muted);padding:10px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .15s;white-space:nowrap;}
-    .d-tab:hover{color:#ccc;}
+    .d-tab{background:transparent;border-bottom:2px solid transparent;color:#888;padding:10px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;white-space:nowrap;}
+    .d-tab:hover{color:#e0e0e0;}
     .d-tab.active{border-bottom-color:var(--lime);color:var(--lime);}
 
     /* ── SCORE INPUT ── */
@@ -76,20 +76,20 @@
     .big-stat{font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:1;}
 
     /* ── BAND CARD ── */
-    .band-card{background:var(--bg3);border:1px solid var(--border);border-top:3px solid transparent;padding:16px 12px;cursor:pointer;transition:all .2s;text-align:center;}
-    .band-card:hover{border-color:#2a2a2a;background:var(--bg4);}
+    .band-card{background:var(--bg3);border:1px solid var(--border);border-top:3px solid transparent;padding:20px 14px;cursor:pointer;transition:all .2s;text-align:center;}
+    .band-card:hover{border-color:#383838;background:var(--bg4);}
     .band-card.active{background:var(--bg4);}
 
     /* ── TYPE CARD ── */
-    .type-card{background:var(--bg3);border:1px solid var(--border);padding:20px 14px;cursor:pointer;transition:all .2s;text-align:center;border-radius:2px;}
-    .type-card:hover{background:var(--bg4);border-color:#2a2a2a;transform:translateY(-2px);}
+    .type-card{background:var(--bg3);border:1px solid var(--border);padding:22px 16px;cursor:pointer;transition:all .2s;text-align:center;border-radius:2px;}
+    .type-card:hover{background:var(--bg4);border-color:#404040;transform:translateY(-2px);}
     .type-card.active{border-color:var(--lime);}
 
     /* ── SECTION LABEL ── */
-    .section-label{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);}
+    .section-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
 
     /* ── METRIC CHIP ── */
-    .chip{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border2);padding:4px 12px;font-size:.72rem;color:var(--muted);font-family:'Barlow',sans-serif;letter-spacing:.03em;}
+    .chip{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border2);padding:5px 13px;font-size:.76rem;color:#bbb;font-family:'Barlow',sans-serif;letter-spacing:.03em;}
 
     /* ── DIVIDER ── */
     .vdivider{width:1px;background:var(--border);flex-shrink:0;}
@@ -115,7 +115,7 @@
     .overlap-no{background:#120700;border:1px solid #3a1a00;color:#c97700;}
 
     /* ── TABLE ── */
-    .pct-row{display:grid;grid-template-columns:60px 1fr 80px 100px;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+    .pct-row{display:grid;grid-template-columns:60px 1fr 90px 60px;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--border);}
     .pct-row:last-child{border-bottom:none;}
   </style>
 </head>
@@ -123,7 +123,7 @@
 
 <!-- ════════════════════════════════════════ TOP BAR ════ -->
 <div style="background:#080808;border-bottom:1px solid #1a1a1a;" class="px-6 py-2 hidden md:flex items-center justify-between">
-  <div class="flex items-center gap-4 text-xs" style="color:#444;font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;">
+  <div class="flex items-center gap-4 text-xs" style="color:#888;font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;">
     <span class="uppercase">CrossFit Open 2026</span>
     <span>·</span>
     <span>Thailand Field Analysis</span>
@@ -171,13 +171,13 @@
         <div class="section-label mb-3">CrossFit Open 2026 · Thailand Field · Workout 26.1</div>
         <h1 class="f1 font-black text-white leading-none" style="font-size:clamp(2.4rem,6vw,4.2rem);letter-spacing:-.02em;">
           <span class="gradient-lime lime-text-glow">ลุยดิวะ</span><br/>
-          <span style="font-size:clamp(1.2rem,3vw,2rem);color:#555;font-weight:700;">THAILAND FIELD INTELLIGENCE</span>
+          <span style="font-size:clamp(1.2rem,3vw,2rem);color:#888;font-weight:700;">THAILAND FIELD INTELLIGENCE</span>
         </h1>
         <p class="mt-3 text-sm" style="color:var(--muted);max-width:420px;line-height:1.6;">
           Thailand-only percentiles · Score bands · Performance interpretation · Athlete guidance.
           Not just a leaderboard — a field intelligence system.
         </p>
-        <div class="mt-2" style="font-size:.72rem;color:var(--muted2);">RX Men N=253 · RX Women N=190 · Scaled Men N=30 · Scaled Women N=79</div>
+        <div class="mt-2" style="font-size:.74rem;color:var(--muted);">RX Men N=253 · RX Women N=190 · Scaled Men N=30 · Scaled Women N=79</div>
         <!-- Workout badge -->
         <div class="mt-5 flex flex-wrap items-center gap-3">
           <div style="background:var(--lime);color:#0c0c0c;padding:5px 16px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;">
@@ -193,22 +193,22 @@
         <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid var(--lime);">
           <div class="section-label mb-2">Total Athletes</div>
           <div class="big-stat lime" style="font-size:2.6rem;" id="s-total">552</div>
-          <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">All divisions</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:4px;">All divisions</div>
         </div>
         <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid #555;">
           <div class="section-label mb-2">RX Men Median</div>
           <div class="big-stat text-white" style="font-size:2.6rem;" id="s-median">191</div>
-          <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">Thailand P50</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:4px;">Thailand P50</div>
         </div>
         <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid #f59e0b;">
           <div class="section-label mb-2">#1 Thailand</div>
           <div class="big-stat" style="font-size:2.6rem;color:#f59e0b;" id="s-top">317</div>
-          <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">#1 RX Women</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:4px;">#1 RX Women</div>
         </div>
         <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid #555;">
           <div class="section-label mb-2">Season</div>
           <div class="big-stat text-white" style="font-size:2.6rem;">1/3</div>
-          <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">Workouts done</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:4px;">Workouts done</div>
         </div>
       </div>
     </div>
@@ -706,15 +706,15 @@ function renderPctGrid(d){
     <div class="pct-row">
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;color:${r.col};">${r.label}</div>
       <div>
-        <div style="display:flex;justify-content:space-between;font-size:.65rem;color:#333;margin-bottom:4px;">
-          <span></span><span style="color:#444;">${r.sub}</span>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:#888;margin-bottom:5px;">
+          <span></span><span style="color:#aaa;">${r.sub}</span>
         </div>
         <div class="pbar" style="height:4px;">
           <div style="height:100%;width:${r.bar}%;background:${r.col};border-radius:2px;"></div>
         </div>
       </div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:#f0f0f0;text-align:right;">${r.val}</div>
-      <div style="font-size:.7rem;color:#333;text-align:right;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em;">reps</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:#f0f0f0;text-align:right;">${r.val}</div>
+      <div style="font-size:.75rem;color:#888;text-align:right;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em;">reps</div>
     </div>`).join('');
 }
 
@@ -773,8 +773,8 @@ function renderBands(d){
   document.getElementById('band-cards').innerHTML = BANDS_META.map(b=>`
     <div class="band-card" id="band-${b.id}" onclick="selectBand('${b.id}')" style="border-top:${b.topBorder};">
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:${b.col};margin-bottom:6px;">${b.id}</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.35rem;color:#f0f0f0;line-height:1.1;">${d.bands[b.id].range}</div>
-      <div style="font-size:.68rem;color:var(--muted);margin-top:4px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.06em;">${d.bands[b.id].pct}</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.25rem;color:#f0f0f0;line-height:1.2;margin-top:2px;">${d.bands[b.id].range}</div>
+      <div style="font-size:.75rem;color:#aaa;margin-top:6px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em;">${d.bands[b.id].pct}</div>
     </div>`).join('');
 }
 
@@ -805,8 +805,8 @@ function renderGuidanceCards(){
     document.getElementById(ids[i]).innerHTML = row.map(g=>`
       <div class="type-card" id="type-${g.id}" onclick="selectType('${g.id}')">
         <div style="font-size:1.5rem;margin-bottom:8px;">${g.icon}</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.88rem;letter-spacing:.08em;color:#f0f0f0;">${g.label}</div>
-        <div style="font-size:.72rem;color:var(--muted);margin-top:4px;">${g.sub}</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;letter-spacing:.06em;color:#f0f0f0;margin-top:2px;">${g.label}</div>
+        <div style="font-size:.76rem;color:#aaa;margin-top:5px;">${g.sub}</div>
       </div>`).join('');
   });
 }
@@ -831,22 +831,22 @@ function selectType(id){
     </div>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:3px;margin-bottom:3px;">
       ${[
-        { label:'STRENGTHS',              text:g.strengths, icon:'💪', col:'#1a4010', bc:'#2a6018' },
-        { label:'PRIMARY FOCUS',          text:g.focus,     icon:'🎯', col:'#120820', bc:'#2a1840' },
-        { label:'COMPETITION STRATEGY',   text:g.strategy,  icon:'📊', col:'#080c1a', bc:'#16203a' },
-        { label:'TRAINING PRIORITY',      text:g.training,  icon:'🏋️', col:'#1a1000', bc:'#3a2800' }
+        { label:'STRENGTHS',              text:g.strengths, icon:'💪', col:'#0e1a0a', bc:'#2a4020' },
+        { label:'PRIMARY FOCUS',          text:g.focus,     icon:'🎯', col:'#12101e', bc:'#2c2850' },
+        { label:'COMPETITION STRATEGY',   text:g.strategy,  icon:'📊', col:'#0c1020', bc:'#202848' },
+        { label:'TRAINING PRIORITY',      text:g.training,  icon:'🏋️', col:'#1a1206', bc:'#3a2c10' }
       ].map(item=>`
         <div style="background:${item.col};border:1px solid ${item.bc};padding:18px 20px;">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
             <span>${item.icon}</span>
             <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:${g.col};">${item.label}</span>
           </div>
-          <p style="font-size:.83rem;color:#b0b0b0;line-height:1.7;">${item.text}</p>
+          <p style="font-size:.85rem;color:#c8c8c8;line-height:1.75;">${item.text}</p>
         </div>`).join('')}
     </div>
     <div style="background:#0a0a0a;border:1px solid var(--border2);padding:16px 18px;display:flex;align-items:flex-start;gap:10px;">
       <span style="color:var(--lime);flex-shrink:0;">📌</span>
-      <div style="font-size:.82rem;color:#888;line-height:1.7;"><strong style="color:#bbb;">Expectation:</strong> ${g.expectation}</div>
+      <div style="font-size:.85rem;color:#b0b0b0;line-height:1.75;"><strong style="color:#e0e0e0;">Expectation:</strong> ${g.expectation}</div>
     </div>`;
 }
 
@@ -900,7 +900,7 @@ function calcPercentile(){
   const note = d.bands[bandId]?.note || '';
   document.getElementById('result-insight').innerHTML = `
     <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-bottom:6px;">${tier.label} · ${d.bands[bandId]?.pct||''}</div>
-    <div style="font-size:.82rem;color:#a0a0a0;line-height:1.7;">${note}</div>`;
+    <div style="font-size:.85rem;color:#c0c0c0;line-height:1.8;">${note}</div>`;
 }
 
 /* ─── START ─────────────────────────────────────────────────────── */
