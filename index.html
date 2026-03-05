@@ -177,13 +177,14 @@
           Thailand-only percentiles · Score bands · Performance interpretation · Athlete guidance.
           Not just a leaderboard — a field intelligence system.
         </p>
+        <div class="mt-2" style="font-size:.72rem;color:var(--muted2);">RX Men N=253 · RX Women N=190 · Scaled Men N=30 · Scaled Women N=79</div>
         <!-- Workout badge -->
         <div class="mt-5 flex flex-wrap items-center gap-3">
           <div style="background:var(--lime);color:#0c0c0c;padding:5px 16px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;">
             AMRAP 15 MIN · REPS
           </div>
           <span class="chip">Data: Mar 5, 2026</span>
-          <span class="chip">N = 883 Thai Athletes</span>
+          <span class="chip">N = 552 Thai Athletes</span>
         </div>
       </div>
 
@@ -191,18 +192,18 @@
       <div class="flex gap-3 flex-wrap">
         <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid var(--lime);">
           <div class="section-label mb-2">Total Athletes</div>
-          <div class="big-stat lime" style="font-size:2.6rem;" id="s-total">883</div>
+          <div class="big-stat lime" style="font-size:2.6rem;" id="s-total">552</div>
           <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">All divisions</div>
         </div>
         <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid #555;">
           <div class="section-label mb-2">RX Men Median</div>
-          <div class="big-stat text-white" style="font-size:2.6rem;" id="s-median">255</div>
+          <div class="big-stat text-white" style="font-size:2.6rem;" id="s-median">191</div>
           <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">Thailand P50</div>
         </div>
         <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid #f59e0b;">
           <div class="section-label mb-2">#1 Thailand</div>
-          <div class="big-stat" style="font-size:2.6rem;color:#f59e0b;" id="s-top">347</div>
-          <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">RX Men</div>
+          <div class="big-stat" style="font-size:2.6rem;color:#f59e0b;" id="s-top">317</div>
+          <div style="font-size:.7rem;color:var(--muted2);margin-top:4px;">#1 RX Women</div>
         </div>
         <div class="card stripe-bg" style="padding:20px 24px;min-width:110px;border-top:3px solid #555;">
           <div class="section-label mb-2">Season</div>
@@ -462,66 +463,94 @@
 <!-- ════════════════════════════════════════ JAVASCRIPT ════ -->
 <script>
 /* ─── DATA ─────────────────────────────────────────────────────── */
+/* Real data computed from Thailand 26.1 CrossFit Open leaderboard */
 const DATA = {
   '26.1': {
     'rx-men': {
-      n:347, label:'RX Men', unit:'reps',
-      dist:{ labels:['120–139','140–159','160–179','180–199','200–219','220–239','240–259','260–279','280–299','300–319','320–339','340+'], counts:[4,8,14,22,36,50,60,54,44,30,17,8] },
-      pcts:{ P10:162, P25:210, P50:255, P75:290, P90:320, P95:335 },
-      clusters:[{ score:240, size:32, note:'Round 4 completion boundary' },{ score:300, size:22, note:'Round 5 completion boundary' }],
-      tb:{ range:'238–242', athletes:41, ranks:28, sens:3.2 },
-      overlap:{ exists:true, count:23, range:'185–198', msg:'23 Scaled Men score above the RX bottom threshold' },
+      n:253, label:'RX Men', unit:'reps',
+      dist:{
+        labels:['80–99','100–119','120–139','140–159','160–179','180–199','200–219','220–239','240–259','260–279','280–299'],
+        counts:[2,7,11,38,46,39,49,32,17,10,2]
+      },
+      pcts:{ P10:143, P25:162, P50:191, P75:218, P90:244, P95:257 },
+      clusters:[
+        { score:206, size:7, note:'Most repeated score — round completion cluster' },
+        { score:198, size:5, note:'Dense zone — tiebreak sensitive' },
+        { score:200, size:5, note:'Round boundary cluster' }
+      ],
+      tb:{ range:'186–196', athletes:19, ranks:10, sens:1.9 },
+      overlap:{ exists:true, count:30, range:'118–226', msg:'All 30 Scaled Men overlap with the RX Men score range' },
       bands:{
-        Elite:       { range:'320+ reps', pct:'Top 5%',   note:'Elite engine + near-unbroken gymnastics. Competing at a level comparable to regional CrossFit athletes globally.' },
-        Competitive: { range:'290–319',   pct:'Top 25%',  note:'Strong engine with solid gymnastics efficiency. Minor breaks on gymnastics likely; pacing discipline is above average for the Thai field.' },
-        Solid:       { range:'255–289',   pct:'Top 50%',  note:'Good aerobic capacity. Likely 2–3 breaks per gymnastics set. Engine is there but skill efficiency has meaningful room to develop.' },
-        Developing:  { range:'210–254',   pct:'Top 75%',  note:'Developing engine or skill. Gymnastics cycling or sustained pacing is a limiter. Clear improvement potential with focused work.' },
-        Beginner:    { range:'< 210 reps',pct:'Bottom 25%',note:'Capacity or skill building phase. Every rep matters. Consistent training will yield fast gains at this stage.' }
+        Elite:       { range:'257+ reps', pct:'Top 5%',    note:'Top 5% of Thai RX Men. Near-unbroken gymnastics under sustained aerobic load. Competing at the highest domestic CrossFit level.' },
+        Competitive: { range:'218–256',   pct:'Top 25%',   note:'Strong Thai field competitor. Good engine with functional gymnastics cycling. Pacing discipline above average for the domestic field.' },
+        Solid:       { range:'191–217',   pct:'Top 50%',   note:'At or above the Thai median. Aerobic capacity is working. Gymnastics efficiency with 2–3 breaks per set is likely the current ceiling.' },
+        Developing:  { range:'162–190',   pct:'Top 75%',   note:'Developing phase. Engine or gymnastics skill is limiting. Clear ROI available from focused training on the weaker of the two.' },
+        Beginner:    { range:'< 162 reps',pct:'Bottom 25%',note:'Foundation building stage. Capacity and movement quality are both compounding. Consistent attendance is the highest-leverage action at this level.' }
       }
     },
     'rx-women': {
-      n:182, label:'RX Women', unit:'reps',
-      dist:{ labels:['80–99','100–119','120–139','140–159','160–179','180–199','200–219','220–239','240–259','260+'], counts:[3,6,12,18,28,35,34,24,14,8] },
-      pcts:{ P10:108, P25:148, P50:188, P75:222, P90:252, P95:268 },
-      clusters:[{ score:180, size:22, note:'Round 3 completion boundary' },{ score:240, size:14, note:'Round 4 completion boundary' }],
-      tb:{ range:'178–182', athletes:26, ranks:19, sens:2.8 },
-      overlap:{ exists:true, count:15, range:'140–155', msg:'15 Scaled Women score above the RX bottom threshold' },
+      n:190, label:'RX Women', unit:'reps',
+      dist:{
+        labels:['40–59','80–99','100–119','120–139','140–159','160–179','180–199','200–219','220–239','240–259','260–279','280–299','300–319'],
+        counts:[1,2,9,12,29,37,30,24,23,13,5,4,1]
+      },
+      pcts:{ P10:131, P25:158, P50:184, P75:215, P90:243, P95:259 },
+      clusters:[
+        { score:210, size:6, note:'Most repeated score — round completion boundary' },
+        { score:159, size:5, note:'Dense zone at P25 boundary' },
+        { score:149, size:4, note:'Dense zone below median' }
+      ],
+      tb:{ range:'179–189', athletes:17, ranks:9, sens:1.9 },
+      overlap:{ exists:true, count:79, range:'88–244', msg:'All 79 Scaled Women overlap with the RX Women score range' },
       bands:{
-        Elite:       { range:'252+ reps', pct:'Top 10%',  note:'Elite engine + efficient gymnastics. Top-tier Thai female CrossFit athlete.' },
-        Competitive: { range:'222–251',   pct:'Top 25%',  note:'Strong engine, solid gymnastics. Minor breaks expected; good pacing relative to Thai field.' },
-        Solid:       { range:'188–221',   pct:'Top 50%',  note:'Good capacity. Gymnastics cycling likely 2–3 breaks per set. Clear upside with skill development.' },
-        Developing:  { range:'148–187',   pct:'Top 75%',  note:'Developing capacity. Consistent training focus on engine + gymnastics will yield fast gains.' },
-        Beginner:    { range:'< 148 reps',pct:'Bottom 25%',note:'Building phase. Every workout is genuine development.' }
+        Elite:       { range:'259+ reps', pct:'Top 5%',    note:'Top 5% of Thai RX Women. Elite engine with efficient gymnastics. Best domestic female CrossFit performers.' },
+        Competitive: { range:'215–258',   pct:'Top 25%',   note:'Strong domestic competitor. Good pacing and gymnastics efficiency. Top quarter of the Thai female RX field.' },
+        Solid:       { range:'184–214',   pct:'Top 50%',   note:'At or above the Thai median. Consistent performer with room to develop gymnastics cycling under fatigue.' },
+        Developing:  { range:'158–183',   pct:'Top 75%',   note:'Developing capacity or skill. One focused training cycle on the primary limiter yields meaningful percentile gains.' },
+        Beginner:    { range:'< 158 reps',pct:'Bottom 25%',note:'Building stage. Every rep logged is development data. Consistent training will produce fast visible improvement.' }
       }
     },
     'scaled-men': {
-      n:198, label:'Scaled Men', unit:'reps',
-      dist:{ labels:['100–119','120–139','140–159','160–179','180–199','200–219','220–239','240–259','260–279','280+'], counts:[4,9,16,24,34,40,35,24,9,3] },
-      pcts:{ P10:138, P25:175, P50:212, P75:248, P90:278, P95:290 },
-      clusters:[{ score:200, size:28, note:'Round 3 completion boundary' },{ score:240, size:18, note:'Round 4 completion boundary' }],
-      tb:{ range:'198–202', athletes:32, ranks:22, sens:3.8 },
-      overlap:null,
+      n:30, label:'Scaled Men', unit:'reps',
+      dist:{
+        labels:['100–119','120–139','140–159','160–179','180–199','200–219','220–239'],
+        counts:[1,3,11,9,2,2,2]
+      },
+      pcts:{ P10:131, P25:144, P50:159, P75:176, P90:215, P95:216 },
+      clusters:[
+        { score:144, size:3, note:'Most repeated score in Scaled Men field' },
+        { score:174, size:2, note:'Dense zone near P75' }
+      ],
+      tb:{ range:'154–164', athletes:3, ranks:3, sens:1.0 },
+      overlap:{ exists:true, count:30, range:'118–226', msg:'Scaled Men field entirely overlaps with RX Men bottom range. Top Scaled Men (180+) are well within RX scoring territory.' },
       bands:{
-        Elite:       { range:'278+ reps', pct:'Top 10%',  note:'Top Scaled field — engine and movement quality both strong. RX readiness should be evaluated against overlap analysis.' },
-        Competitive: { range:'248–277',   pct:'Top 25%',  note:'Strong Scaled performance. If scoring above 248, overlap with RX bottom quartile is possible — worth evaluating.' },
-        Solid:       { range:'212–247',   pct:'Top 50%',  note:'Solid Scaled athlete. Good base to build toward RX movement standards.' },
-        Developing:  { range:'175–211',   pct:'Top 75%',  note:'Engine building phase with simultaneous movement learning. Consistent attendance compounds fast here.' },
-        Beginner:    { range:'< 175 reps',pct:'Bottom 25%',note:'Building phase. Quality over speed — every movement done correctly matters.' }
+        Elite:       { range:'215+ reps', pct:'Top 10%',   note:'Top Scaled Men. Fitness is clearly at or above the RX entry point. The gap to RX is movement standard, not conditioning.' },
+        Competitive: { range:'176–214',   pct:'Top 25%',   note:'Strong Scaled performance. Upper quartile of Thai Scaled Men field. RX movement standards work is the next logical step.' },
+        Solid:       { range:'159–175',   pct:'Top 50%',   note:'At or above the Scaled Men median. Good base. Focused movement standards work over 3–6 months can unlock RX readiness.' },
+        Developing:  { range:'144–158',   pct:'Top 75%',   note:'Developing stage. Engine and movement are building simultaneously — a normal and productive phase of CrossFit development.' },
+        Beginner:    { range:'< 144 reps',pct:'Bottom 25%',note:'Foundation phase. Quality of movement now directly determines the ceiling 12 months from now. Prioritise technique over intensity.' }
       }
     },
     'scaled-women': {
-      n:156, label:'Scaled Women', unit:'reps',
-      dist:{ labels:['80–99','100–119','120–139','140–159','160–179','180–199','200–219','220+'], counts:[4,8,14,22,32,36,24,16] },
-      pcts:{ P10:105, P25:138, P50:175, P75:208, P90:235, P95:248 },
-      clusters:[{ score:160, size:18, note:'Round 3 completion boundary' }],
-      tb:{ range:'158–162', athletes:22, ranks:16, sens:3.1 },
-      overlap:null,
+      n:79, label:'Scaled Women', unit:'reps',
+      dist:{
+        labels:['80–99','100–119','120–139','140–159','160–179','180–199','200–219','220–239','240–259'],
+        counts:[3,5,7,23,16,12,7,5,1]
+      },
+      pcts:{ P10:119, P25:148, P50:163, P75:185, P90:212, P95:222 },
+      clusters:[
+        { score:153, size:6, note:'Most repeated score — dense zone near median' },
+        { score:154, size:3, note:'Dense zone — tiebreak sensitive' },
+        { score:179, size:3, note:'Round completion boundary cluster' }
+      ],
+      tb:{ range:'158–168', athletes:10, ranks:7, sens:1.4 },
+      overlap:{ exists:true, count:79, range:'88–244', msg:'Scaled Women field entirely overlaps with RX Women score range. Top Scaled Women (180+) are competing in RX scoring territory.' },
       bands:{
-        Elite:       { range:'235+ reps', pct:'Top 10%',  note:'Top Scaled Women field. Strong engine, good movement quality.' },
-        Competitive: { range:'208–234',   pct:'Top 25%',  note:'Solid Scaled athlete. Engine and movement working together well.' },
-        Solid:       { range:'175–207',   pct:'Top 50%',  note:'Good development base. Consistent training will compound quickly here.' },
-        Developing:  { range:'138–174',   pct:'Top 75%',  note:'Building stage. Each week of training has significant ROI at this level.' },
-        Beginner:    { range:'< 138 reps',pct:'Bottom 25%',note:'Every rep is real progress. Focus on quality and showing up.' }
+        Elite:       { range:'222+ reps', pct:'Top 5%',    note:'Top 5% of Thai Scaled Women. Fitness is clearly at RX entry point. Movement standard is the only remaining barrier.' },
+        Competitive: { range:'185–221',   pct:'Top 25%',   note:'Strong Scaled Women performance. Upper quartile of Thai field. RX movement standard evaluation is a logical next step.' },
+        Solid:       { range:'163–184',   pct:'Top 50%',   note:'At or above the Scaled Women median. Solid base. Focused development on the primary movement limiter yields clear gains.' },
+        Developing:  { range:'148–162',   pct:'Top 75%',   note:'Developing phase. Engine and movement building together. Consistent attendance is the most powerful training variable here.' },
+        Beginner:    { range:'< 148 reps',pct:'Bottom 25%',note:'Foundation stage. Every session is compounding development. Focus on quality and consistency over score.' }
       }
     }
   }
